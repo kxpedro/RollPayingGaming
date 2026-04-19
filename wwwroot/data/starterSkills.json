@@ -1,0 +1,68 @@
+{
+  "pericias_iniciais": {
+    "races": [
+      {
+        "nome": "Anão",
+        "skills": {"História": 4}
+      },
+      {
+        "nome": "Elfo",
+        "skills": {"Percepção": 4}
+      },
+      {
+        "nome": "Meio-Orc",
+        "skills": {"Intimidação": 4}
+      },
+      {
+        "nome": "Meio-Elfo",
+        "skills": {"Sobrevivencia": 2, "Intuição": 2}
+      }
+    ],
+    "classes": [
+      {
+        "nome": "Bárbaro",
+        "skills": {"Adestrar Animais": 1, "Atletismo": 1, "Intimidação": 3, "Natureza": 2, "Percepção": 2, "Sobrevivência": 4}
+      },
+      {
+        "nome": "Bardo",
+        "skills": {"Atuação": 4, "Enganação": 2, "História": 1, "Intuição": 1, "Intimidação": 1, "Persuasão": 4}
+      },
+      {
+        "nome": "Bruxo",
+        "skills": {"Arcanismo": 4, "História": 2, "Intimidação": 1, "Investigação": 1, "Natureza": 1, "Religião": 1}
+      },
+      {
+        "nome": "Clérigo",
+        "skills": {"História": 4, "Intuição": 2, "Medicina": 2, "Persuasão": 2, "Religião": 4}
+      },
+      {
+        "nome": "Druida",
+        "skills": {"Arcanismo": 1, "Adestrar Animais": 4, "Intuição": 4, "Medicina": 1, "Natureza": 6, "Percepção": 2, "Sobrevivência": 4}
+      },
+      {
+        "nome": "Guerreiro",
+        "skills": {"Acrobacia": 2, "Atletismo": 4, "História": 1, "Intuição": 2, "Intimidação": 1, "Percepção": 2, "Sobrevivência": 2}
+      },
+      {
+        "nome": "Ladino",
+        "skills": {"Acrobacia": 2, "Atletismo": 2, "Enganação": 2, "Intuição": 2, "Intimidação": 2, "Investigação": 2, "Percepção": 2, "Atuação": 2, "Persuasão": 2, "Prestidigitação": 2, "Furtividade": 2}
+      },
+      {
+        "nome": "Mago",
+        "skills": {"Arcanismo": 6, "História": 2, "Intuição": 2, "Investigação": 2, "Religião": 1}
+      },
+      {
+        "nome": "Monge",
+        "skills": {"Acrobacia": 5, "Atletismo": 5, "História": 1, "Religião": 4, "Furtividade": 1}
+      },
+      {
+        "nome": "Paladino",
+        "skills": {"Atletismo": 2, "Intuição": 2, "Intimidação": 2, "Medicina": 2, "Persuasão": 1, "Religião": 4}
+      },
+      {
+        "nome": "Patrulheiro",
+        "skills": {"Adestrar Animais": 2, "Atletismo": 2, "Intuição": 4, "Investigação": 4, "Natureza": 4, "Percepção": 4, "Furtividade": 1, "Sobrevivência": 4}
+      }
+    ]
+  }
+}

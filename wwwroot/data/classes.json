@@ -1,0 +1,86 @@
+[
+    {
+      "nome": "Bárbaro",
+      "dado_vida": "d12",
+      "habilidade_principal": "Força",
+      "salvaguardas": ["Força", "Constituição"],
+      "proficiencias_base": ["Armaduras leves", "Armaduras médias", "Escudos", "Armas simples", "Armas marciais"]
+    },
+    {
+      "nome": "Bardo",
+      "dado_vida": "d8",
+      "habilidade_principal": "Carisma",
+      "salvaguardas": ["Destreza", "Carisma"],
+      "proficiencias_base": ["Armaduras leves", "Armas simples", "Bestas de mão", "Espadas longas", "Rapiers", "Espadas curtas", "Três instrumentos musicais"]
+    },
+    {
+      "nome": "Bruxo",
+      "dado_vida": "d8",
+      "habilidade_principal": "Carisma",
+      "salvaguardas": ["Sabedoria", "Carisma"],
+      "proficiencias_base": ["Armaduras leves", "Armas simples"]
+    },
+    {
+      "nome": "Clérigo",
+      "dado_vida": "d8",
+      "habilidade_principal": "Sabedoria",
+      "salvaguardas": ["Sabedoria", "Carisma"],
+      "proficiencias_base": ["Armaduras leves", "Armaduras médias", "Escudos", "Armas simples"]
+    },
+    {
+      "nome": "Druida",
+      "dado_vida": "d8",
+      "habilidade_principal": "Sabedoria",
+      "salvaguardas": ["Inteligência", "Sabedoria"],
+      "proficiencias_base": ["Armaduras leves (não metálicas)", "Armaduras médias (não metálicas)", "Escudos (não metálicas)", "Clavas", "Adagas", "Dardos", "Azagaias", "Maças", "Bordões", "Cimitarras", "Foices", "Frondas", "Lanças"]
+    },
+    {
+      "nome": "Feiticeiro",
+      "dado_vida": "d6",
+      "habilidade_principal": "Carisma",
+      "salvaguardas": ["Constituição", "Carisma"],
+      "proficiencias_base": ["Adagas", "Dardos", "Frondas", "Bordões", "Bestas leves"]
+    },
+    {
+      "nome": "Guerreiro",
+      "dado_vida": "d10",
+      "habilidade_principal": "Força ou Destreza",
+      "salvaguardas": ["Força", "Constituição"],
+      "proficiencias_base": ["Todas as armaduras", "Escudos", "Armas simples", "Armas marciais"]
+    },
+    {
+      "nome": "Ladino",
+      "dado_vida": "d8",
+      "habilidade_principal": "Destreza",
+      "salvaguardas": ["Destreza", "Inteligência"],
+      "proficiencias_base": ["Armaduras leves", "Armas simples", "Bestas de mão", "Espadas longas", "Rapiers", "Espadas curtas", "Ferramentas de ladrão"]
+    },
+    {
+      "nome": "Mago",
+      "dado_vida": "d6",
+      "habilidade_principal": "Inteligência",
+      "salvaguardas": ["Inteligência", "Sabedoria"],
+      "proficiencias_base": ["Adagas", "Dardos", "Frondas", "Bordões", "Bestas leves"]
+    },
+    {
+      "nome": "Monge",
+      "dado_vida": "d8",
+      "habilidade_principal": "Destreza e Sabedoria",
+      "salvaguardas": ["Força", "Destreza"],
+      "proficiencias_base": ["Armas simples", "Espadas curtas"]
+    },
+    {
+      "nome": "Paladino",
+      "dado_vida": "d10",
+      "habilidade_principal": "Força e Carisma",
+      "salvaguardas": ["Sabedoria", "Carisma"],
+      "proficiencias_base": ["Todas as armaduras", "Escudos", "Armas simples", "Armas marciais"]
+    },
+    {
+      "nome": "Patrulheiro",
+      "dado_vida": "d10",
+      "habilidade_principal": "Destreza e Sabedoria",
+      "salvaguardas": ["Força", "Destreza"],
+      "proficiencias_base": ["Armaduras leves", "Armaduras médias", "Escudos", "Armas simples", "Armas marciais"]
+    }
+  ]

@@ -1,0 +1,103 @@
+{
+  "templates_raciais": [
+    {
+      "raca": "Anão",
+      "atributos": {
+        "forca": 17,
+        "destreza": 12,
+        "constituicao": 16,
+        "inteligencia": 10,
+        "sabedoria": 13,
+        "carisma": 8
+      }
+    },    
+    {
+      "raca": "Elfo",
+      "atributos": {
+        "forca": 10,
+        "destreza": 17,
+        "constituicao": 13,
+        "inteligencia": 8,
+        "sabedoria": 15,
+        "carisma": 12
+      }
+    },
+    {
+      "raca": "Halfling",
+      "atributos": {
+        "forca": 8,
+        "destreza": 17,
+        "constituicao": 13,
+        "inteligencia": 10,
+        "sabedoria": 12,
+        "carisma": 15
+      }
+    },
+    {
+      "raca": "Humano",
+      "atributos": {
+        "forca": 16,
+        "destreza": 15,
+        "constituicao": 14,
+        "inteligencia": 13,
+        "sabedoria": 11,
+        "carisma": 9
+      }
+    },
+    {
+      "raca": "Draconato",
+      "atributos": {
+        "forca": 17,
+        "destreza": 10,
+        "constituicao": 13,
+        "inteligencia": 8,
+        "sabedoria": 12,
+        "carisma": 15
+      }
+    },
+    {
+      "raca": "Gnomo",
+      "atributos": {
+        "forca": 8,
+        "destreza": 10,
+        "constituicao": 15,
+        "inteligencia": 17,
+        "sabedoria": 13,
+        "carisma": 12
+      }
+    },
+    {
+      "raca": "Meio-Elfo",
+      "atributos": {
+        "forca": 10,
+        "destreza": 15,
+        "constituicao": 14,
+        "inteligencia": 8,
+        "sabedoria": 12,
+        "carisma": 17
+      }
+    },
+    {
+      "raca": "Meio-Orc",
+      "atributos": {
+        "forca": 17,
+        "destreza": 12,
+        "constituicao": 15,
+        "inteligencia": 8,
+        "sabedoria": 13,
+        "carisma": 10
+      }
+    },
+    {
+      "raca": "Tiefling",
+      "atributos": {
+        "forca": 8,
+        "destreza": 13,
+        "constituicao": 12,
+        "inteligencia": 15,
+        "sabedoria": 10,
+        "carisma": 17
+      }
+    }
+  ]
+}

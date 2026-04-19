@@ -1,0 +1,148 @@
+{
+    "lista_pericias": [
+      {
+        "nome": "Acrobacia",
+        "atributo_base": "Destreza",
+        "mecanica_roleta": {
+          "tipo": "evasao_dinamica",
+          "efeito": "Aumenta a fatia de 'Sucesso' em testes para evitar quedas ou se desvencilhar de agarrões."
+        }
+      },
+      {
+        "nome": "Adestrar Animais",
+        "atributo_base": "Sabedoria",
+        "mecanica_roleta": {
+          "tipo": "pacificar_inimigo",
+          "efeito": "Se o encontro for com uma fera, expande a fatia 'Social/Fugir' e reduz a fatia 'Combate'."
+        }
+      },
+      {
+        "nome": "Arcanismo",
+        "atributo_base": "Inteligência",
+        "mecanica_roleta": {
+          "tipo": "revelacao_magica",
+          "efeito": "Permite identificar as cores das fatias de efeito de uma runa ou armadilha mágica antes de girar."
+        }
+      },
+      {
+        "nome": "Atletismo",
+        "atributo_base": "Força",
+        "mecanica_roleta": {
+          "tipo": "forca_bruta",
+          "efeito": "Aumenta a zona de acerto em testes de escalada, salto ou ao tentar empurrar inimigos."
+        }
+      },
+      {
+        "nome": "Atuação",
+        "atributo_base": "Carisma",
+        "mecanica_roleta": {
+          "tipo": "distracao",
+          "efeito": "Gera uma fatia 'Distração' que, se sorteada, impede que o inimigo ataque no próximo turno."
+        }
+      },
+      {
+        "nome": "Enganação",
+        "atributo_base": "Carisma",
+        "mecanica_roleta": {
+          "tipo": "manipulacao_fatias",
+          "efeito": "Substitui fatias de 'Falha' por fatias de 'Sucesso Falso' (o NPC acredita na mentira)."
+        }
+      },
+      {
+        "nome": "Furtividade",
+        "atributo_base": "Destreza",
+        "mecanica_roleta": {
+          "tipo": "ocultamento",
+          "efeito": "Reduz a velocidade de rotação da roleta em testes de aproximação, facilitando o 'parar' manual (se houver)."
+        }
+      },
+      {
+        "nome": "História",
+        "atributo_base": "Inteligência",
+        "mecanica_roleta": {
+          "tipo": "lore_buff",
+          "efeito": "Sucesso revela a fraqueza de um monstro, aumentando a fatia de 'Crítico' contra ele."
+        }
+      },
+      {
+        "nome": "Intimidação",
+        "atributo_base": "Carisma",
+        "mecanica_roleta": {
+          "tipo": "reducao_hitbox",
+          "efeito": "Sucesso reduz permanentemente o tamanho da fatia de 'Ataque Inimigo' para aquele encontro."
+        }
+      },
+      {
+        "nome": "Intuição",
+        "atributo_base": "Sabedoria",
+        "mecanica_roleta": {
+          "tipo": "detector_mentira",
+          "efeito": "Destaque visual (brilho) na fatia que representa a 'Verdade' em diálogos."
+        }
+      },
+      {
+        "nome": "Investigação",
+        "atributo_base": "Inteligência",
+        "mecanica_roleta": {
+          "tipo": "busca_objetos",
+          "efeito": "Em salas com loot, adiciona uma fatia 'Item Raro' à roleta de tesouro."
+        }
+      },
+      {
+        "nome": "Medicina",
+        "atributo_base": "Sabedoria",
+        "mecanica_roleta": {
+          "tipo": "estabilizacao",
+          "efeito": "Substitui a fatia 'Morte' por 'Estável' na roleta de salvamento contra a morte."
+        }
+      },
+      {
+        "nome": "Natureza",
+        "atributo_base": "Inteligência",
+        "mecanica_roleta": {
+          "tipo": "sobrevivencia_flora",
+          "efeito": "Identifica fatias de 'Veneno' em plantas/comida, mudando sua cor para roxo alerta."
+        }
+      },
+      {
+        "nome": "Percepção",
+        "atributo_base": "Sabedoria",
+        "mecanica_roleta": {
+          "tipo": "alerta_precoce",
+          "efeito": "Evita 'Surpresa'; impede que a roleta de combate comece com fatias de erro expandidas."
+        }
+      },
+      {
+        "nome": "Persuasão",
+        "atributo_base": "Carisma",
+        "mecanica_roleta": {
+          "tipo": "diplomacia",
+          "efeito": "Expande fatias de 'Recompensa' ou 'Acordo' em negociações com NPCs."
+        }
+      },
+      {
+        "nome": "Prestidigitação",
+        "atributo_base": "Destreza",
+        "mecanica_roleta": {
+          "tipo": "furto",
+          "efeito": "Permite um 'giro extra' silencioso para roubar um item sem que o NPC perceba a falha."
+        }
+      },
+      {
+        "nome": "Religião",
+        "atributo_base": "Inteligência",
+        "mecanica_roleta": {
+          "tipo": "buff_divino",
+          "efeito": "Contra mortos-vivos ou demônios, converte 5% da fatia 'Erro' em 'Dano Radiante'."
+        }
+      },
+      {
+        "nome": "Sobrevivência",
+        "atributo_base": "Sabedoria",
+        "mecanica_roleta": {
+          "tipo": "rastreio",
+          "efeito": "Garante que a roleta de 'Viagem' não contenha a fatia 'Perdido'."
+        }
+      }
+    ]  
+}

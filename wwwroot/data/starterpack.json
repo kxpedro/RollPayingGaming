@@ -1,0 +1,52 @@
+{
+  "starter_packs": {
+    "barbaro": {
+      "inventario": ["pacote_explorador"],
+      "equipamentos": ["adagas", "machado_grande"]
+    },
+    "bardo": {
+      "inventario": ["pacote_diplomata"],
+      "equipamentos": ["armadura_couro", "adagas", "florete", "alaude"]
+    },
+    "bruxo": {
+      "inventario": ["componente_material", "pacote_estudioso"],
+      "equipamentos": ["armadura_couro", "cajado"]
+    },
+    "clerigo": {
+      "inventario": ["pacote_sacerdote"],
+      "equipamentos": ["escudo", "simbolo_sagrado", "maca", "brunea"]
+    },
+    "druida": {
+      "inventario": ["pacote_explorador"],
+      "equipamentos": ["armadura_couro", "foco_druidico", "cimitarra", "escudo_madeira"]
+    },
+    "feiticeiro": {
+      "inventario": ["componente_material", "pacote_explorador"],
+      "equipamentos": ["robes", "orbe_magia"]
+    },
+    "guerreiro": {
+      "inventario": ["pacote_masmorreiro"],
+      "equipamentos": ["cota_malha", "espada_curta", "escudo"]
+    },
+    "ladino": {
+      "inventario": ["ferramentas_ladrao", "pacote_assaltante"],
+      "equipamentos": ["armadura_couro", "adagas", "arco_curto"]
+    },
+    "mago": {
+      "inventario": ["componente_material", "pacote_estudioso"],
+      "equipamentos": ["robes", "livro_magias"]
+    },
+    "monge": {
+      "inventario": ["pacote_masmorreiro"],
+      "equipamentos": ["robes", "bastao"]
+    },
+    "paladino": {
+      "inventario": ["pacote_sacerdote"],
+      "equipamentos": ["cota_malha", "simbolo_sagrado", "espada_longa"]
+    },
+    "patrulheiro": {
+      "inventario": ["pacote_masmorreiro"],
+      "equipamentos": ["arco_longo", "espada_curta", "armadura_couro"]
+    }
+  }
+}

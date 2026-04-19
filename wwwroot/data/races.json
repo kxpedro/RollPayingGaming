@@ -1,0 +1,38 @@
+[
+    {
+      "nome": "Anão",
+      "atributos": {"Constituicao": 2} 
+    },
+    {
+      "nome": "Elfo",
+      "atributos": {"Destreza": 2}
+    },
+    {
+      "nome": "Halfling",
+      "atributos": {"Destreza": 2}
+    },
+    {
+      "nome": "Humano",
+      "atributos": {"Destreza": 1, "Forca": 1, "Constituicao": 1, "Inteligencia": 1, "Sabedoria": 1, "Carisma": 1}
+    },
+    {
+      "nome": "Draconato",
+      "atributos": {"Forca": 2, "Carisma": 1}
+    },
+    {
+      "nome": "Gnomo",
+      "atributos": {"Inteligencia": 2}
+    },
+    {
+      "nome": "Meio-Elfo",
+      "atributos": {"Carisma": 2, "Destreza": 1, "Sabedoria": 1}
+    },
+    {
+      "nome": "Meio-Orc",
+      "atributos": {"Forca": 2, "Constituicao": 1}
+    },
+    {
+      "nome": "Tiefling",
+      "atributos": {"Carisma": 2, "Inteligencia": 1}
+    }
+  ]

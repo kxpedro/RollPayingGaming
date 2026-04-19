@@ -1,0 +1,33 @@
+{
+  "equipamentos": {
+    "armaduras_e_escudos": {
+      "leves": ["Acolchoada", "Couro", "Couro Batido"],
+      "medias": ["Gibão de Peles", "Camisão de Malha", "Brunea", "Peitoral", "Meia-Armadura"],
+      "pesadas": ["Cota de Anéis", "Cota de Malha", "Cota de Talas", "Placas"],
+      "escudos": ["Escudo (+2 CA)"]
+    },
+    "armas": {
+      "simples_corpo_a_corpo": ["Adaga", "Clava", "Lança", "Maça", "Martelo leve", "Bordão", "Machadinha", "Azagaia", "Foice curta"],
+      "simples_a_distancia": ["Arco curto", "Besta leve", "Dardo", "Funda"],
+      "marciais_corpo_a_corpo": ["Alabarda", "Espada curta", "Espada longa", "Espadona", "Machado de batalha", "Machado grande", "Martelo de guerra", "Rapieira", "Chicote", "Glaive", "Lança de montaria", "Maça estrela", "Malho", "Picareta de guerra", "Tridente"],
+      "marciais_a_distancia": ["Arco longo", "Besta de mão", "Besta pesada", "Rede", "Zarabatana"]
+    },
+    "equipamento_de_aventura": {
+      "consumiveis": ["Água benta", "Rações de viagem", "Óleo", "Veneno básico", "Poção de cura", "Antídoto"],
+      "exploracao": ["Corda (cânhamo ou seda)", "Pederneira e isqueiro", "Lanterna surda", "Lanterna de espelhamento", "Tocha", "Pé de cabra", "Marreta", "Píton", "Saco de dormir", "Cantil"],
+      "armazenamento": ["Mochila", "Algibeira", "Saco", "Estojo de mapas/pergaminhos", "Baú", "Cesto"],
+      "utilitarios": ["Algemas", "Espelho de aço", "Roldana e polia", "Tenda", "Ampulheta", "Arreios", "Balança de mercador", "Cadeado", "Corrente", "Lupa"]
+    },
+    "ferramentas": {
+      "artesao": ["Suprimentos de alquimista", "Ferramentas de ferreiro", "Ferramentas de carpinteiro", "Ferramentas de cartógrafo", "Ferramentas de sapateiro", "Ferramentas de cozinheiro", "Ferramentas de oleiro", "Ferramentas de pedreiro"],
+      "kits_especiais": ["Kit de disfarce", "Kit de falsificação", "Kit de ervas", "Kit de venenos", "Ferramentas de ladrão", "Kit de venenos"],
+      "instrumentos_musicais": ["Alaúde", "Flauta", "Gaita de foles", "Lira", "Oboé", "Tambor", "Trombeta", "Violoncelo", "Zampoña"],
+      "jogos": ["Baralho de cartas", "Conjunto de xadrez dracônico", "Dados", "Jogo de Três-Dragões Ante"]
+    },
+    "montarias_e_veiculos": {
+      "montarias": ["Cavalo de carga", "Cavalo de guerra", "Cavalo de passeio", "Pônei", "Camelo", "Burro", "Mula", "Elefante"],
+      "veiculos_terrestres": ["Carroça", "Carruagem", "Biga", "Trenó"],
+      "veiculos_aquaticos": ["Bote", "Galé", "Navio de guerra", "Navio à vela", "Quilha"]
+    }
+  }
+}
