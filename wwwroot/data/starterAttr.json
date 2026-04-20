@@ -3,22 +3,22 @@
     {
       "raca": "Anão",
       "atributos": {
-        "forca": 17,
-        "destreza": 12,
-        "constituicao": 16,
+        "forca": 15,
+        "destreza": 10,
+        "constituicao": 15,
         "inteligencia": 10,
         "sabedoria": 13,
-        "carisma": 8
+        "carisma": 7
       }
     },    
     {
       "raca": "Elfo",
       "atributos": {
-        "forca": 10,
-        "destreza": 17,
-        "constituicao": 13,
-        "inteligencia": 8,
-        "sabedoria": 15,
+        "forca": 11,
+        "destreza": 16,
+        "constituicao": 10,
+        "inteligencia": 12,
+        "sabedoria": 12,
         "carisma": 12
       }
     },
@@ -26,8 +26,8 @@
       "raca": "Halfling",
       "atributos": {
         "forca": 8,
-        "destreza": 17,
-        "constituicao": 13,
+        "destreza": 15,
+        "constituicao": 11,
         "inteligencia": 10,
         "sabedoria": 12,
         "carisma": 15
@@ -36,10 +36,10 @@
     {
       "raca": "Humano",
       "atributos": {
-        "forca": 16,
-        "destreza": 15,
-        "constituicao": 14,
-        "inteligencia": 13,
+        "forca": 14,
+        "destreza": 13,
+        "constituicao": 12,
+        "inteligencia": 11,
         "sabedoria": 11,
         "carisma": 9
       }
@@ -47,45 +47,45 @@
     {
       "raca": "Draconato",
       "atributos": {
-        "forca": 17,
-        "destreza": 10,
-        "constituicao": 13,
-        "inteligencia": 8,
-        "sabedoria": 12,
-        "carisma": 15
+        "forca": 15,
+        "destreza": 11,
+        "constituicao": 12,
+        "inteligencia": 10,
+        "sabedoria": 11,
+        "carisma": 9
       }
     },
     {
       "raca": "Gnomo",
       "atributos": {
-        "forca": 8,
-        "destreza": 10,
-        "constituicao": 15,
-        "inteligencia": 17,
-        "sabedoria": 13,
-        "carisma": 12
+        "forca": 7,
+        "destreza": 12,
+        "constituicao": 11,
+        "inteligencia": 16,
+        "sabedoria": 12,
+        "carisma": 11
       }
     },
     {
       "raca": "Meio-Elfo",
       "atributos": {
-        "forca": 10,
+        "forca": 12,
         "destreza": 15,
-        "constituicao": 14,
-        "inteligencia": 8,
-        "sabedoria": 12,
-        "carisma": 17
+        "constituicao": 12,
+        "inteligencia": 10,
+        "sabedoria": 10,
+        "carisma": 15
       }
     },
     {
       "raca": "Meio-Orc",
       "atributos": {
-        "forca": 17,
+        "forca": 18,
         "destreza": 12,
-        "constituicao": 15,
-        "inteligencia": 8,
-        "sabedoria": 13,
-        "carisma": 10
+        "constituicao": 14,
+        "inteligencia": 7,
+        "sabedoria": 10,
+        "carisma": 7
       }
     },
     {
@@ -93,9 +93,9 @@
       "atributos": {
         "forca": 8,
         "destreza": 13,
-        "constituicao": 12,
-        "inteligencia": 15,
-        "sabedoria": 10,
+        "constituicao": 11,
+        "inteligencia": 11,
+        "sabedoria": 11,
         "carisma": 17
       }
     }

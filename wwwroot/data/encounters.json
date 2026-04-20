@@ -4,15 +4,16 @@
       "id": "combat_goblin_ambush",
       "nome": "Emboscada de Goblins",
       "tipo": "combate",
+      "level": 1,
       "metadados": {
         "descricao": "Goblins sorrateiros atacam pelas sombras.",
         "narrativa_inicial": "Flechas assoviam e risadas estridentes ecoam: Goblins!"
       },
       "logic_config": {
         "teste_atributo": [
-          {"nome": "Destreza", "peso": 25.0},
-          {"nome": "Força", "peso": 50.0},
-          {"nome": "Constituição", "peso": 25.0}
+          {"nome": "Força", "peso": 30.0},
+          {"nome": "Destreza", "peso": 20.0},
+          {"nome": "Constituição", "peso": 50.0}
         ],
         "sucesso_narrativa": "Os goblins são derrotados e você continua sua jornada.",
         "recompensas": [
@@ -20,7 +21,7 @@
           { "tipo": "item", "pool": "bugigangas" }
         ],
         "falha_consequencia": {
-          "efeitos": [ { "tipo": "dano", "valor": 2.0 } ],
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
           "narrativa": "Os goblins te encurralam e acertam você!"
         }
       }
@@ -29,12 +30,17 @@
       "id": "hazard_swinging_blade",
       "nome": "Armadilha: Lâmina Pendular",
       "tipo": "armadilha",
+      "level": 1,
       "metadados": {
         "descricao": "Uma lâmina imensa oscila rítmica no corredor.",
         "narrativa_inicial": "O som de metal cortando o ar avisa do perigo à frente."
       },
       "logic_config": {
-        "teste_atributo": [{"nome": "Destreza", "peso": 100.0}],
+        "teste_atributo": [
+          {"nome": "Destreza", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 20.0},
+          {"nome": "Constituição", "peso": 20.0}
+        ],
         "sucesso_narrativa": "Você cronometra o movimento e passa ileso.",
         "falha_consequencia": {
           "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
@@ -46,11 +52,17 @@
       "id": "social_suspicious_hermit",
       "nome": "O Eremita Suspeito",
       "tipo": "social",
+      "level": 1,
       "metadados": {
         "descricao": "Um velho ranzinza guarda uma passagem estreita.",
         "narrativa_inicial": "Um homem curvado bloqueia o caminho, exigindo uma 'taxa de passagem'."
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Carisma", "peso": 70.0},
+          {"nome": "Inteligência", "peso": 10.0},
+          {"nome": "Sabedoria", "peso": 20.0}
+        ],
         "teste_pericia": [{"nome": "Persuasão", "peso": 100.0}],
         "sucesso_narrativa": "O velho sorri e revela um atalho seguro.",
         "falha_consequencia": {
@@ -60,18 +72,19 @@
       }
     },
         {
-      "id": "combat_hermit_rage",
-      "nome": "Fúria do Eremita",
-      "tipo": "combate",
-      "metadados": {
+          "id": "combat_hermit_rage",
+          "nome": "Fúria do Eremita",
+          "tipo": "combate",
+          "level": 2,
+          "metadados": {
         "descricao": "O velho ranzinza se transforma em uma ameaça mortal.",
         "narrativa_inicial": "O eremita enfurecido avança com seu cajado levantado."
       },
       "logic_config": {
         "teste_atributo": [
-          {"nome": "Destreza", "peso": 25.0},
-          {"nome": "Força", "peso": 50.0},
-          {"nome": "Constituição", "peso": 25.0}
+          {"nome": "Força", "peso": 30.0},
+          {"nome": "Destreza", "peso": 20.0},
+          {"nome": "Constituição", "peso": 50.0}
         ],
         "sucesso_narrativa": "O eremita é derrotado e você continua sua jornada.",
         "recompensas": [
@@ -88,6 +101,7 @@
       "id": "combat_skeleton_patrol",
       "nome": "Patrulha de Esqueletos",
       "tipo": "combate",
+      "level": 1,
       "metadados": {
         "descricao": "Ossos estalam enquanto mortos-vivos marcham.",
         "narrativa_inicial": "Figuras esqueléticas com restos de armaduras barram sua passagem."
@@ -101,7 +115,7 @@
         "sucesso_narrativa": "Os esqueletos são derrotados e você continua sua jornada.",
         "recompensas": [ { "tipo": "ouro", "valor": 100.0 } ],
         "falha_consequencia": {
-          "efeitos": [ { "tipo": "dano", "valor": 2.0 } ],
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
           "narrativa": "Os esqueletos te encurralam e acertam você!"
         }
       }
@@ -110,17 +124,22 @@
       "id": "discovery_ancient_statue",
       "nome": "Estátua do Cavaleiro Esquecido",
       "tipo": "descoberta",
+      "level": 1,
       "metadados": {
         "descricao": "Uma estátua imensa com inscrições antigas.",
         "narrativa_inicial": "Uma efígie de pedra observa silenciosa o centro da câmara."
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Inteligência", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 40.0}
+        ],
         "teste_pericia": [{"nome": "História", "peso": 100.0}],
         "sucesso_narrativa": "As inscrições revelam um compartimento secreto com um item!",
         "recompensas": [ { "tipo": "item", "pool": "item_magico" } ],
         "falha_consequencia": {          
-          "efeitos": [ { "tipo": "lore" } ],
-          "narrativa": "Você não consegue decifrar os símbolos, é apenas pedra velha."
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
+          "narrativa": "Os simbolos representam uma maldição! Uma energia sombria é liberada em seu corpo!"
         }
       }
     },
@@ -128,15 +147,21 @@
       "id": "hazard_falling_rocks",
       "nome": "Desmoronamento de Teto",
       "tipo": "armadilha",
+      "level": 1,
       "metadados": {
         "descricao": "O teto da caverna está instável.",
         "narrativa_inicial": "Um tremor sacode o chão e pedras começam a despencar!"
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Destreza", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 20.0},
+          {"nome": "Constituição", "peso": 20.0}
+        ],
         "teste_pericia": [{"nome": "Atletismo", "peso": 100.0}],
         "sucesso_narrativa": "Você mergulha para trás de uma pilastra a tempo.",
         "falha_consequencia": {
-          "efeitos": [ { "tipo": "dano", "valor": 2.0 } ],
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
           "narrativa": "Uma rocha pesada atinge seu ombro!"
         }
       }
@@ -145,14 +170,16 @@
       "id": "combat_mimic_chest",
       "nome": "O Baú Faminto",
       "tipo": "combate",
+      "level": 2,
       "metadados": {
         "descricao": "Um baú de tesouro que revela dentes afiados e uma língua pegajosa.",
         "narrativa_inicial": "Ao tocar na fechadura, o baú solta um rosnado úmido. É um Mímico!"
       },
       "logic_config": {
         "teste_atributo": [
-          {"nome": "Força", "peso": 60.0},
-          {"nome": "Destreza", "peso": 40.0}
+          {"nome": "Força", "peso": 30.0},
+          {"nome": "Destreza", "peso": 20.0},
+          {"nome": "Constituição", "peso": 50.0}
         ],
         "sucesso_narrativa": "Você consegue se soltar da resina e golpear o monstro até ele virar uma poça de gosma.",
         "recompensas": [
@@ -169,11 +196,17 @@
       "id": "social_sphynx_riddle",
       "nome": "O Enigma da Esfinge",
       "tipo": "social",
+      "level": 2,
       "metadados": {
         "descricao": "Uma criatura majestosa com corpo de leão e rosto humano bloqueia a porta.",
         "narrativa_inicial": "A Esfinge abre os olhos e diz: 'Decifra-me ou devoro-te'."
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Carisma", "peso": 70.0},
+          {"nome": "Inteligência", "peso": 10.0},
+          {"nome": "Sabedoria", "peso": 20.0}
+        ],
         "teste_pericia": [{"nome": "Investigação", "peso": 100.0}],
         "sucesso_narrativa": "Sua resposta astuta satisfaz a criatura, que se afasta graciosamente.",
         "recompensas": [ { "tipo": "item", "pool": "item_magico" } ],
@@ -187,15 +220,20 @@
       "id": "hazard_poison_gas",
       "nome": "Névoa Venenosa",
       "tipo": "armadilha",
+      "level": 2,
       "metadados": {
         "descricao": "Gás esverdeado vaza de fendas nas paredes.",
         "narrativa_inicial": "Um cheiro doce e enjoativo preenche o ar rapidamente."
       },
       "logic_config": {
-        "teste_atributo": [{"nome": "Constituição", "peso": 100.0}],
+        "teste_atributo": [
+          {"nome": "Destreza", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 20.0},
+          {"nome": "Constituição", "peso": 20.0}
+        ],
         "sucesso_narrativa": "Você prende o fôlego e atravessa a nuvem antes que seus pulmões cedam.",
         "falha_consequencia": {
-          "efeitos": [ { "tipo": "dano", "valor": 1.5 }, { "tipo": "status", "valor": "envenenado" } ],
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 }, { "tipo": "status", "valor": "envenenado" } ],
           "narrativa": "Seus pulmões queimam e sua visão fica turva!"
         }
       }
@@ -204,11 +242,16 @@
       "id": "discovery_fountain_youth",
       "nome": "Fonte de Águas Claras",
       "tipo": "descoberta",
+      "level": 1,
       "metadados": {
         "descricao": "Uma fonte mágica que brilha com uma luz azulada.",
         "narrativa_inicial": "O som de água corrente parece revigorar seus sentidos."
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Inteligência", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 40.0}
+        ],
         "teste_pericia": [{"nome": "Arcanismo", "peso": 100.0}],
         "sucesso_narrativa": "Você identifica as propriedades curativas e bebe com segurança.",
         "recompensas": [ { "tipo": "cura", "valor": 5.0 } ],
@@ -222,14 +265,16 @@
       "id": "combat_gelatinous_cube",
       "nome": "Cubo Gelatinoso",
       "tipo": "combate",
+      "level": 2,
       "metadados": {
         "descricao": "Uma massa transparente e ácida que ocupa todo o corredor.",
         "narrativa_inicial": "Você quase caminha direto para dentro de uma parede invisível de gelatina ácida!"
       },
       "logic_config": {
         "teste_atributo": [
-          {"nome": "Destreza", "peso": 70.0},
-          {"nome": "Força", "peso": 30.0}
+          {"nome": "Força", "peso": 30.0},
+          {"nome": "Destreza", "peso": 20.0},
+          {"nome": "Constituição", "peso": 50.0}
         ],
         "sucesso_narrativa": "Você esquiva do abraço viscoso e destrói o núcleo da criatura.",
         "recompensas": [
@@ -246,6 +291,7 @@
       "id": "social_goblin_merchant",
       "nome": "O Mercador de Sucata",
       "tipo": "social",
+      "level": 1,
       "metadados": {
         "descricao": "Um goblin usando um chapéu alto e torto tenta te vender lixo.",
         "narrativa_inicial": "Pshhh! Ei, grandão! Quer comprar algo... 'raro'?"
@@ -264,6 +310,7 @@
       "id": "hazard_pressure_plate",
       "nome": "Placa de Pressão",
       "tipo": "armadilha",
+      "level": 1,
       "metadados": {
         "descricao": "Uma placa levemente elevada no piso de pedra.",
         "narrativa_inicial": "Você ouve um 'click' sinistro sob sua bota."
@@ -281,6 +328,7 @@
       "id": "combat_beholder_kin",
       "nome": "Observador Menor",
       "tipo": "combate",
+      "level": 3,
       "metadados": {
         "descricao": "Uma esfera flutuante com um grande olho central e vários pedúnculos oculares.",
         "narrativa_inicial": "Um brilho mágico surge de um dos olhos da criatura: raios paralisantes!"
@@ -302,11 +350,16 @@
       "id": "discovery_shrine_gods",
       "nome": "Altar dos Antigos",
       "tipo": "descoberta",
+      "level": 2,
       "metadados": {
         "descricao": "Um altar empoeirado dedicado a uma divindade esquecida.",
         "narrativa_inicial": "Uma sensação de paz emana das ruínas sagradas."
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Inteligência", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 40.0}
+        ],
         "teste_pericia": [{"nome": "Religião", "peso": 100.0}],
         "sucesso_narrativa": "Você faz a prece correta e recebe uma bênção temporária.",
         "recompensas": [ { "tipo": "status", "valor": "abençoado" } ],
@@ -320,14 +373,16 @@
       "id": "combat_owlbear_den",
       "nome": "Ninho de Urso-Coruja",
       "tipo": "combate",
+      "level": 2,
       "metadados": {
         "descricao": "Uma fera híbrida, metade urso, metade coruja, protege sua prole.",
         "narrativa_inicial": "Um rugido que termina em um pio ensurdecedor ecoa pela caverna!"
       },
       "logic_config": {
         "teste_atributo": [
-          {"nome": "Força", "peso": 70.0},
-          {"nome": "Constituição", "peso": 30.0}
+          {"nome": "Força", "peso": 30.0},
+          {"nome": "Destreza", "peso": 20.0},
+          {"nome": "Constituição", "peso": 50.0}
         ],
         "sucesso_narrativa": "Você domina a fera com força bruta e ela foge para as profundezas.",
         "recompensas": [
@@ -335,7 +390,7 @@
           { "tipo": "item", "pool": "materiais_raros" }
         ],
         "falha_consequencia": {
-          "efeitos": [ { "tipo": "dano", "valor": 3.5 } ],
+          "efeitos": [ { "tipo": "dano", "valor": 3.0 } ],
           "narrativa": "As garras do urso-coruja rasgam sua pele com facilidade."
         }
       }
@@ -344,11 +399,17 @@
       "id": "social_captured_scout",
       "nome": "O Batedor Preso",
       "tipo": "social",
+      "level": 1,
       "metadados": {
         "descricao": "Um elfo está pendurado de cabeça para baixo em uma rede de cordas.",
         "narrativa_inicial": "Ei! Você aí! Pode me tirar dessa situação embaraçosa?"
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Carisma", "peso": 70.0},
+          {"nome": "Inteligência", "peso": 10.0},
+          {"nome": "Sabedoria", "peso": 20.0}
+        ],
         "teste_pericia": [{"nome": "Prestidigitação", "peso": 100.0}],
         "sucesso_narrativa": "Você corta as cordas com precisão e o elfo te agradece com uma bolsa de moedas.",
         "recompensas": [ { "tipo": "ouro", "valor": 50.0 } ],
@@ -362,11 +423,16 @@
       "id": "hazard_mirror_hallway",
       "nome": "Corredor dos Espelhos",
       "tipo": "armadilha",
+      "level": 2,
       "metadados": {
         "descricao": "Espelhos distorcidos cobrem as paredes, confundindo seus sentidos.",
         "narrativa_inicial": "Você vê dezenas de versões de si mesmo. Qual é a saída real?"
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Inteligência", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 40.0}
+        ],
         "teste_pericia": [{"nome": "Percepção", "peso": 100.0}],
         "sucesso_narrativa": "Você ignora os reflexos falsos e encontra a porta verdadeira.",
         "falha_consequencia": {
@@ -379,19 +445,21 @@
       "id": "combat_shadow_stalker",
       "nome": "Sombra Espreitadora",
       "tipo": "combate",
+      "level": 2,
       "metadados": {
         "descricao": "Uma silhueta sombria que se desprende da parede.",
         "narrativa_inicial": "Sua própria sombra parece ganhar vida e tenta te estrangular!"
       },
       "logic_config": {
         "teste_atributo": [
-          {"nome": "Sabedoria", "peso": 60.0},
-          {"nome": "Força", "peso": 40.0}
+          {"nome": "Força", "peso": 30.0},
+          {"nome": "Destreza", "peso": 20.0},
+          {"nome": "Constituição", "peso": 50.0}
         ],
         "sucesso_narrativa": "Você foca sua vontade e dissipa a escuridão com um golpe certeiro.",
         "recompensas": [ { "tipo": "item", "pool": "essencia_sombria" } ],
         "falha_consequencia": {
-          "efeitos": [ { "tipo": "dano", "valor": 2.0 }, { "tipo": "status", "valor": "enfraquecido" } ],
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 }, { "tipo": "status", "valor": "enfraquecido" } ],
           "narrativa": "O toque frio da sombra drena sua força vital."
         }
       }
@@ -400,16 +468,21 @@
       "id": "discovery_alchemist_lab",
       "nome": "Laboratório Abandonado",
       "tipo": "descoberta",
+      "level": 2,
       "metadados": {
         "descricao": "Frascos borbulhantes e livros de receitas alquímicas estão espalhados.",
         "narrativa_inicial": "O cheiro de enxofre e ervas secas é forte aqui."
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Inteligência", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 40.0}
+        ],
         "teste_pericia": [{"nome": "Natureza", "peso": 100.0}],
         "sucesso_narrativa": "Você consegue misturar os restos e criar uma poção útil.",
         "recompensas": [ { "tipo": "item", "pool": "pocao_cura" } ],
         "falha_consequencia": {
-          "efeitos": [ { "tipo": "dano", "valor": 1.5 } ],
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
           "narrativa": "Uma mistura instável explode na sua cara!"
         }
       }
@@ -418,14 +491,16 @@
       "id": "combat_rusted_golem",
       "nome": "Golem de Ferro Enferrujado",
       "tipo": "combate",
+      "level": 3,
       "metadados": {
         "descricao": "Um construto gigante de metal que range a cada movimento.",
         "narrativa_inicial": "O guardião mecânico desperta, soltando faíscas e óleo negro."
       },
       "logic_config": {
         "teste_atributo": [
-          {"nome": "Força", "peso": 80.0},
-          {"nome": "Inteligência", "peso": 20.0}
+          {"nome": "Força", "peso": 30.0},
+          {"nome": "Destreza", "peso": 20.0},
+          {"nome": "Constituição", "peso": 50.0}
         ],
         "sucesso_narrativa": "Você encontra a junta solta na armadura e desativa o gigante.",
         "recompensas": [ { "tipo": "item", "pool": "peças_metal" }, { "tipo": "ouro", "valor": 200.0 } ],
@@ -439,11 +514,17 @@
       "id": "social_ghost_knight",
       "nome": "O Cavaleiro Fantasma",
       "tipo": "social",
+      "level": 3,
       "metadados": {
         "descricao": "O espectro de um paladino ajoelhado diante de uma espada quebrada.",
         "narrativa_inicial": "Ele levanta o olhar vazio: 'Você é digno de carregar este fardo?'"
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Carisma", "peso": 70.0},
+          {"nome": "Inteligência", "peso": 10.0},
+          {"nome": "Sabedoria", "peso": 20.0}
+        ],
         "teste_pericia": [{"nome": "Persuasão", "peso": 100.0}],
         "sucesso_narrativa": "Suas palavras de honra convencem o espírito, que te entrega sua lâmina.",
         "recompensas": [ { "tipo": "item", "pool": "arma_magica" } ],
@@ -457,11 +538,17 @@
       "id": "hazard_web_bridge",
       "nome": "Ponte de Teias",
       "tipo": "armadilha",
+      "level": 3,
       "metadados": {
         "descricao": "Uma ponte improvisada feita inteiramente de teia de aranha gigante sobre um abismo.",
         "narrativa_inicial": "A teia é pegajosa e balança perigosamente com o vento das profundezas."
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Destreza", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 20.0},
+          {"nome": "Constituição", "peso": 20.0}
+        ],
         "teste_pericia": [{"nome": "Acrobacia", "peso": 100.0}],
         "sucesso_narrativa": "Você cruza a ponte com a leveza de um elfo.",
         "falha_consequencia": {
@@ -474,18 +561,21 @@
       "id": "combat_harpy_song",
       "nome": "O Canto da Harpia",
       "tipo": "combate",
+      "level": 3,
       "metadados": {
         "descricao": "Criaturas aladas com corpos de ave e troncos humanos.",
         "narrativa_inicial": "Uma melodia hipnotizante começa a atrair você para a beira do precipício."
       },
       "logic_config": {
         "teste_atributo": [
-          {"nome": "Sabedoria", "peso": 100.0}
+          {"nome": "Força", "peso": 30.0},
+          {"nome": "Destreza", "peso": 20.0},
+          {"nome": "Constituição", "peso": 50.0}
         ],
         "sucesso_narrativa": "Você tapa os ouvidos e derruba as harpias com pedradas e flechas.",
         "recompensas": [ { "tipo": "ouro", "valor": 45.0 } ],
         "falha_consequencia": {
-          "efeitos": [ { "tipo": "dano", "valor": 2.5 } ],
+          "efeitos": [ { "tipo": "dano", "valor": 2.0 } ],
           "narrativa": "Você caminha em transe e as harpias mergulham para te dilacerar."
         }
       }
@@ -494,11 +584,16 @@
       "id": "discovery_buried_library",
       "nome": "Biblioteca Soterrada",
       "tipo": "descoberta",
+      "level": 3,
       "metadados": {
         "descricao": "Estantes de livros que sobreviveram ao tempo, embora cobertas de mofo.",
         "narrativa_inicial": "O conhecimento de eras passadas aguarda em páginas de pergaminho amarelado."
       },
       "logic_config": {
+        "teste_atributo": [
+          {"nome": "Inteligência", "peso": 60.0},
+          {"nome": "Sabedoria", "peso": 40.0}
+        ],
         "teste_pericia": [{"nome": "História", "peso": 100.0}],
         "sucesso_narrativa": "Você encontra um mapa que revela o layout do próximo andar.",
         "recompensas": [ { "tipo": "mapa_revelado" } ],
@@ -512,13 +607,15 @@
       "id": "combat_mummy_lord",
       "nome": "O Despertar da Múmia",
       "tipo": "combate",
+      "level": 3,
       "metadados": {
         "descricao": "Um antigo rei em decomposição sai de seu sarcófago.",
         "narrativa_inicial": "Ataduras secas se desenrolam enquanto um hálito de morte preenche a sala."
       },
       "logic_config": {
         "teste_atributo": [
-          {"nome": "Força", "peso": 50.0},
+          {"nome": "Força", "peso": 30.0},
+          {"nome": "Destreza", "peso": 20.0},
           {"nome": "Constituição", "peso": 50.0}
         ],
         "sucesso_narrativa": "Você incendeia as bandagens e envia o soberano de volta ao descanso eterno.",
@@ -529,6 +626,319 @@
         "falha_consequencia": {
           "efeitos": [ { "tipo": "dano", "valor": 4.0 }, { "tipo": "status", "valor": "podridão_da_múmia" } ],
           "narrativa": "Um soco seco te atinge, deixando uma marca necrótica em sua pele."
+        }
+      }
+    },
+    {
+      "id": "hazard_spike_pit",
+      "nome": "Fosso de Estacas",
+      "tipo": "armadilha",
+      "level": 1,
+      "metadados": {
+        "descricao": "Um buraco profundo coberto por folhas falsas.",
+        "narrativa_inicial": "O chão cede sob seus pés!"
+      },
+      "logic_config": {
+        "teste_atributo": [
+          {"nome": "Destreza", "peso": 70.0},
+          {"nome": "Sabedoria", "peso": 30.0}
+        ],
+        "sucesso_narrativa": "Você salta a tempo e evita o fosso.",
+        "recompensas": [ { "tipo": "ouro", "valor": 20.0 } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
+          "narrativa": "Você cai e se fere nas estacas!"
+        }
+      }
+    },
+    {
+      "id": "social_lost_child",
+      "nome": "Criança Perdida",
+      "tipo": "social",
+      "level": 1,
+      "metadados": {
+        "descricao": "Uma criança chora sozinha em um corredor escuro.",
+        "narrativa_inicial": "'Você pode me ajudar a encontrar minha mãe?'"
+      },
+      "logic_config": {
+        "teste_pericia": [ { "nome": "Persuasão", "peso": 100.0 } ],
+        "sucesso_narrativa": "Você acalma a criança e ela te entrega um amuleto.",
+        "recompensas": [ { "tipo": "item", "pool": "bugigangas" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
+          "narrativa": "A criança foge gritando, atraindo monstros próximos!"
+        }
+      }
+    },
+    {
+      "id": "discovery_hidden_cache",
+      "nome": "Esconderijo Secreto",
+      "tipo": "descoberta",
+      "level": 1,
+      "metadados": {
+        "descricao": "Uma pequena abertura revela um baú antigo.",
+        "narrativa_inicial": "Você percebe marcas suspeitas na parede."
+      },
+      "logic_config": {
+        "teste_pericia": [ { "nome": "Percepção", "peso": 100.0 } ],
+        "sucesso_narrativa": "Você encontra um baú com moedas e um item útil.",
+        "recompensas": [ { "tipo": "ouro", "valor": 35.0 }, { "tipo": "item", "pool": "bugigangas" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
+          "narrativa": "Você aciona uma armadilha de agulha escondida!"
+        }
+      }
+    },
+    {
+      "id": "combat_rat_swarm",
+      "nome": "Enxame de Ratos",
+      "tipo": "combate",
+      "level": 1,
+      "metadados": {
+        "descricao": "Ratos famintos avançam em massa.",
+        "narrativa_inicial": "Você ouve guinchos e vê olhos brilhando no escuro."
+      },
+      "logic_config": {
+        "teste_atributo": [
+          {"nome": "Destreza", "peso": 60.0},
+          {"nome": "Constituição", "peso": 40.0}
+        ],
+        "sucesso_narrativa": "Você espanta os ratos e encontra moedas espalhadas.",
+        "recompensas": [ { "tipo": "ouro", "valor": 15.0 } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 }, { "tipo": "status", "valor": "doente" } ],
+          "narrativa": "Os ratos te mordem e você sente febre!"
+        }
+      }
+    },
+    {
+      "id": "hazard_sleeping_gas",
+      "nome": "Gás Sonífero",
+      "tipo": "armadilha",
+      "level": 1,
+      "metadados": {
+        "descricao": "Um cheiro adocicado preenche o ar.",
+        "narrativa_inicial": "Você pisa em uma placa e ouve um chiado."
+      },
+      "logic_config": {
+        "teste_atributo": [
+          {"nome": "Constituição", "peso": 80.0},
+          {"nome": "Sabedoria", "peso": 20.0}
+        ],
+        "sucesso_narrativa": "Você prende a respiração e escapa ileso.",
+        "recompensas": [ { "tipo": "ouro", "valor": 10.0 } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": "1.0" } ],
+          "narrativa": "Você desmaia e bate a cabeça no chão."
+        }
+      }
+    },
+    {
+      "id": "combat_bandit_ambush",
+      "nome": "Emboscada de Bandidos",
+      "tipo": "combate",
+      "level": 2,
+      "metadados": {
+        "descricao": "Bandidos armados bloqueiam o caminho.",
+        "narrativa_inicial": "'Entregue seus pertences ou sofra as consequências!'"
+      },
+      "logic_config": {
+        "teste_atributo": [
+          {"nome": "Força", "peso": 40.0},
+          {"nome": "Destreza", "peso": 30.0},
+          {"nome": "Constituição", "peso": 30.0}
+        ],
+        "sucesso_narrativa": "Você derrota os bandidos e pega seus pertences.",
+        "recompensas": [ { "tipo": "ouro", "valor": 70.0 }, { "tipo": "item", "pool": "equipamento" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 3.0 }, { "tipo": "ouro", "valor": -30.0 } ],
+          "narrativa": "Você é roubado e ferido!"
+        }
+      }
+    },
+    {
+      "id": "hazard_blinding_flash",
+      "nome": "Clarão Ofuscante",
+      "tipo": "armadilha",
+      "level": 2,
+      "metadados": {
+        "descricao": "Um feixe de luz intensa explode do teto.",
+        "narrativa_inicial": "Você pisa em uma laje e tudo fica branco."
+      },
+      "logic_config": {
+        "teste_atributo": [
+          {"nome": "Sabedoria", "peso": 60.0},
+          {"nome": "Destreza", "peso": 40.0}
+        ],
+        "sucesso_narrativa": "Você fecha os olhos a tempo e evita o pior.",
+        "recompensas": [ { "tipo": "item", "pool": "bugigangas" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "status", "valor": "cego" } ],
+          "narrativa": "Você fica temporariamente cego!"
+        }
+      }
+    },
+    {
+      "id": "social_merchant_trap",
+      "nome": "O Mercador Trapaceiro",
+      "tipo": "social",
+      "level": 2,
+      "metadados": {
+        "descricao": "Um mercador oferece itens suspeitos por preços altos.",
+        "narrativa_inicial": "'Oferta imperdível! Só hoje!'"
+      },
+      "logic_config": {
+        "teste_pericia": [ { "nome": "Intuição", "peso": 100.0 } ],
+        "sucesso_narrativa": "Você percebe a trapaça e negocia um item raro.",
+        "recompensas": [ { "tipo": "item", "pool": "item_magico" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "ouro", "valor": -50.0 } ],
+          "narrativa": "Você é enganado e perde ouro!"
+        }
+      }
+    },
+    {
+      "id": "discovery_ancient_rune",
+      "nome": "Runa Antiga",
+      "tipo": "descoberta",
+      "level": 2,
+      "metadados": {
+        "descricao": "Uma pedra com inscrições mágicas brilha fracamente.",
+        "narrativa_inicial": "Você sente uma energia estranha emanando da parede."
+      },
+      "logic_config": {
+        "teste_pericia": [ { "nome": "Arcanismo", "peso": 100.0 } ],
+        "sucesso_narrativa": "Você ativa a runa e recebe uma bênção temporária.",
+        "recompensas": [ { "tipo": "status", "valor": "protegido" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
+          "narrativa": "A runa explode e te fere!"
+        }
+      }
+    },
+    {
+      "id": "combat_ghoul_attack",
+      "nome": "Ataque de Ghoul",
+      "tipo": "combate",
+      "level": 2,
+      "metadados": {
+        "descricao": "Um morto-vivo faminto salta das sombras.",
+        "narrativa_inicial": "Garras podres avançam em sua direção!"
+      },
+      "logic_config": {
+        "teste_atributo": [
+          {"nome": "Força", "peso": 40.0},
+          {"nome": "Constituição", "peso": 60.0}
+        ],
+        "sucesso_narrativa": "Você destrói o ghoul e encontra um anel estranho.",
+        "recompensas": [ { "tipo": "item", "pool": "item_magico" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 2.0 }, { "tipo": "status", "valor": "paralisado" } ],
+          "narrativa": "O ghoul te arranha e você sente o corpo travar!"
+        }
+      }
+    },
+    {
+      "id": "hazard_acid_rain",
+      "nome": "Chuva Ácida",
+      "tipo": "armadilha",
+      "level": 3,
+      "metadados": {
+        "descricao": "Goteiras no teto liberam líquido corrosivo.",
+        "narrativa_inicial": "Pingos começam a cair e queimam sua pele."
+      },
+      "logic_config": {
+        "teste_atributo": [
+          {"nome": "Destreza", "peso": 60.0},
+          {"nome": "Constituição", "peso": 40.0}
+        ],
+        "sucesso_narrativa": "Você se protege a tempo e evita o pior.",
+        "recompensas": [ { "tipo": "item", "pool": "pocao_cura" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 3.0 } ],
+          "narrativa": "O ácido corrói parte do seu equipamento!"
+        }
+      }
+    },
+    {
+      "id": "combat_minotaur_labyrinth",
+      "nome": "Labirinto do Minotauro",
+      "tipo": "combate",
+      "level": 3,
+      "metadados": {
+        "descricao": "Um minotauro furioso protege o centro do labirinto.",
+        "narrativa_inicial": "Você ouve um mugido ameaçador e vê chifres vindo em sua direção!"
+      },
+      "logic_config": {
+        "teste_atributo": [
+          {"nome": "Força", "peso": 60.0},
+          {"nome": "Destreza", "peso": 40.0}
+        ],
+        "sucesso_narrativa": "Você derrota o minotauro e encontra um tesouro.",
+        "recompensas": [ { "tipo": "ouro", "valor": 250.0 }, { "tipo": "item", "pool": "arma_magica" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 5.0 } ],
+          "narrativa": "O minotauro te lança contra a parede!"
+        }
+      }
+    },
+    {
+      "id": "discovery_crystal_cavern",
+      "nome": "Caverna de Cristais",
+      "tipo": "descoberta",
+      "level": 3,
+      "metadados": {
+        "descricao": "Cristais mágicos emitem luz e calor.",
+        "narrativa_inicial": "Você sente energia pulsando das pedras."
+      },
+      "logic_config": {
+        "teste_pericia": [ { "nome": "Arcanismo", "peso": 100.0 } ],
+        "sucesso_narrativa": "Você absorve energia e recupera parte da vida.",
+        "recompensas": [ { "tipo": "cura", "valor": 4.0 } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 1.0 } ],
+          "narrativa": "Os cristais explodem e te ferem!"
+        }
+      }
+    },
+    {
+      "id": "social_cursed_noble",
+      "nome": "Nobre Amaldiçoado",
+      "tipo": "social",
+      "level": 3,
+      "metadados": {
+        "descricao": "Um nobre pede ajuda para quebrar uma maldição.",
+        "narrativa_inicial": "'Só alguém de coração puro pode me libertar.'"
+      },
+      "logic_config": {
+        "teste_pericia": [ { "nome": "Religião", "peso": 100.0 } ],
+        "sucesso_narrativa": "Você quebra a maldição e recebe uma relíquia.",
+        "recompensas": [ { "tipo": "item", "pool": "reliquia" } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "status", "valor": "amaldiçoado" } ],
+          "narrativa": "A maldição se volta contra você!"
+        }
+      }
+    },
+    {
+      "id": "hazard_frozen_corridor",
+      "nome": "Corredor Congelado",
+      "tipo": "armadilha",
+      "level": 3,
+      "metadados": {
+        "descricao": "O chão está coberto de gelo escorregadio.",
+        "narrativa_inicial": "Você sente o frio subir pelas botas."
+      },
+      "logic_config": {
+        "teste_atributo": [
+          {"nome": "Destreza", "peso": 80.0},
+          {"nome": "Constituição", "peso": 20.0}
+        ],
+        "sucesso_narrativa": "Você atravessa sem escorregar.",
+        "recompensas": [ { "tipo": "ouro", "valor": 60.0 } ],
+        "falha_consequencia": {
+          "efeitos": [ { "tipo": "dano", "valor": 2.0 }, { "tipo": "status", "valor": "congelado" } ],
+          "narrativa": "Você cai e sente o frio paralisar seus músculos!"
         }
       }
     }

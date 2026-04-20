@@ -103,10 +103,10 @@ F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\orf2nj3g76-45m2s
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\kwkvhbqs6r-nxytlrb7ml.gz
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\r6ww1ukzd1-sfyb7c6oec.gz
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\27tswb9eqe-2yudwj14lg.gz
-F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\pnd0bkqexg-355f3nbb7g.gz
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\cf0mtc5pn6-iwji4d71k8.gz
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\8uooaju664-pzkk2shzdi.gz
-F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\hqdz41b4rj-d8av151y5w.gz
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\jxsajm4zaz-5kz0qqglic.gz
-F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\03jwpv8q6r-9615camod5.gz
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\RollPayingGaming.sourcelink.json
+F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\03jwpv8q6r-9s8mmlyfkj.gz
+F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\pnd0bkqexg-i2knyrvv2o.gz
+F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\hqdz41b4rj-8w1om61ywx.gz

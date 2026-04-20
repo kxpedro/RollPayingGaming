@@ -1,7 +1,7 @@
 @page
-@model RollPayingGaming.Pages.RoletaModel
+@model RollPayingGaming.Pages.IndexModel
 @{
-    ViewData["Title"] = "Roleta";
+    ViewData["Title"] = "RPG - Roll Paying Gaming";
 }
 <h1 style="color: white;text-align: center;color: white;padding: 15px;">RPG - Roll Paying Game</h1>
 <div style="display: flex; align-items: center; gap: 24px;">
@@ -9,7 +9,6 @@
     <button id="novo-jogo-btn" style="margin-left: auto; background: #ffe082; border: none; border-radius: 6px; padding: 8px 18px; font-weight: bold; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.07);">Novo Jogo</button>
 </div>
 <div style="display: flex; flex-direction: row; justify-content: center; align-items: stretch; gap: 40px; margin-top: 30px; min-height: 500px;">
-
     <!-- Coluna lateral esquerda: Equipamentos e Inventário -->
     <div style="display: flex; flex-direction: column; align-items: center; gap: 24px;">
         <div id="equipamentos" style="width: 380px; background: #f3f6fa; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 18px 14px; display: flex; flex-direction: column; align-items: center;">
@@ -25,7 +24,6 @@
             <ul id="log-list" style="list-style: decimal inside; padding-left: 0; margin-bottom: 0;"></ul>
         </div>
     </div>
-
     <!-- Roleta central -->
     <div style="display: flex; flex-direction: column; align-items: center; min-width: 420px; flex: 1;">
         <canvas id="roleta-canvas" width="400" height="400" style="border:1px solid #ccc;"></canvas>
@@ -38,10 +36,7 @@
                 <button id="fechar-popup-btn" style="background:#ffe082; border:none; border-radius:6px; padding:10px 28px; font-weight:bold; font-size:1.1em; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.07);">OK</button>
             </div>
         </div>
-        <button id="proximo-btn" style="margin-top: 20px; display:none;">Próximo</button>
-
     </div>
-
     <!-- Ficha do Personagem -->
     <div id="ficha" style="width: 380px; background: #fffbe6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 22px 18px; display: flex; flex-direction: column; align-items: flex-start; margin-left: 10px;">
         <h4 style="margin-top:0;">Ficha do Personagem</h4>
@@ -95,36 +90,53 @@
         }
 
         function getHP() {
-            return Number(localStorage.getItem('rpg_hp') || '5');
+            return Number(localStorage.getItem('rpg_hp') || '1');
         }
+
         function setHP(val) {
             localStorage.setItem('rpg_hp', val);
         }
+
+        function getMaxHP() {
+            return Number(localStorage.getItem('rpg_hp_max') || '1');
+        }
+
+        function setMaxHP(val) {
+            localStorage.setItem('rpg_hp_max', val);
+        }
+        
         function resetHP() {
-            setHP(5);
+            setHP(getMaxHP());
         }
 
         function getDefesa() {
             return Number(localStorage.getItem('rpg_defesa') || '0');
         }
+
         function setDefesa(val) {
             localStorage.setItem('rpg_defesa', val);
         }
+
         function getXP() {
             return Number(localStorage.getItem('rpg_xp') || '0');
         }
+
         function setXP(val) {
             localStorage.setItem('rpg_xp', val);
         }
+
         function getLevel() {
             return Number(localStorage.getItem('rpg_level') || '1');
         }
+
         function setLevel(val) {
             localStorage.setItem('rpg_level', val);
         }
+
         function addXP(val) {
             let xp = getXP() + val;
-            let level = getLevel();
+            let prevLevel = getLevel();
+            let level = prevLevel;
             let subiuLevel = false;
             let levelsGanhos = 0;
             while (xp >= 100) {
@@ -135,7 +147,8 @@
             }
             setXP(xp);
             setLevel(level);
-            if (subiuLevel) {
+            // Só marca flag de HP pendente se subiu de level E o novo level for maior que 1 E o level anterior era >=1
+            if (subiuLevel && prevLevel >= 1 && level > 1) {
                 // Aumenta +1 ponto base em todos os atributos por level ganho
                 let baseKey = 'rpg_bonus_base_atributos';
                 let bonusBase = JSON.parse(localStorage.getItem(baseKey) || '{}');
@@ -146,6 +159,14 @@
                 localStorage.setItem(baseKey, JSON.stringify(bonusBase));
                 atualizarLog(`Você subiu para o nível ${level}! Todos os atributos base aumentaram em +${levelsGanhos}.`);
                 renderFicha();
+                // Atualiza roleta de encontros para o novo level
+                if (window.encountersData && Array.isArray(window.encountersData.encounters)) {
+                    encontrosRestantes = window.encountersData.encounters.filter(e => e.level === level).map(e => e.nome);
+                    etapas[2].opcoes = [...encontrosRestantes];
+                    desenharRoleta();
+                }
+                // Marca flag para sortear HP depois do encontro
+                localStorage.setItem('rpg_pendente_rolar_hp', '1');
             }
         }
         
@@ -153,6 +174,7 @@
         let listaAtributos = ['forca','destreza','constituicao','inteligencia','sabedoria','carisma'];
         let starterAttrData = null;
         let encontroAtual = null;
+        let encontrosRestantes = [];
 
         async function carregarStarterAttr() {
             if (!starterAttrData) {
@@ -202,10 +224,10 @@
 
             let html = `<b>Raça:</b> ${raca}<br>`;
             html += `<b>Classe:</b> ${classe}<br>`;
-            html += `<b>Dado de Vida:</b> ${dadoVida}<br>`;
-            html += `<b>Pontos de Vida:</b> <span style='color:#d32f2f;'>${hp} / 5</span><br>`;
-            html += `<b>Defesa:</b> <span style='color:#1976d2;'>${defesa}</span>`;
-            if (defesaBonus > 0) html += ` <span style='color:#388e3c;'>(+${defesaBonus} itens)</span>`;
+            //html += `<b>Dado de Vida:</b> ${dadoVida}<br>`;
+            html += `<b>Pontos de Vida:</b> <span style='color:#d32f2f;'>${hp} / ${getMaxHP()}</span><br>`;
+            html += `<b>Pontos de Defesa:</b> <span style='color:#1976d2;'>${defesa}</span>`;
+            if (defesaBonus > 0) html += ` <span style='color:#388e3c;'>(+${defesaBonus})</span>`;
             html += '<br>';
             html += `<b>Experiência:</b> <span style='color:#6d4c41;'>${xp} / 100</span><br>`;
             html += `<b>Level:</b> <span style='color:#388e3c;'>${level}</span><br>`;
@@ -338,14 +360,22 @@
         renderFicha();
         // Botão Novo Jogo
         document.getElementById('novo-jogo-btn').onclick = function() {
-            resetHP();
+            setMaxHP(1);
+            setHP(1);
             setDefesa(0);
             setXP(0);
             setLevel(1);
+            // Zera todos os atributos iniciais
+            let baseKey = 'rpg_bonus_base_atributos';
+            let listaAtributos = ['forca','destreza','constituicao','inteligencia','sabedoria','carisma'];
+            let bonusBase = {};
+            listaAtributos.forEach(attr => { bonusBase[attr] = 0; });
+            localStorage.setItem(baseKey, JSON.stringify(bonusBase));
             // Limpa localStorage dos dados do personagem
             localStorage.removeItem('rpg_raca');
             localStorage.removeItem('rpg_classe');
             localStorage.removeItem('rpg_dado_vida');
+            localStorage.removeItem('rpg_hp_max');
             localStorage.removeItem('rpg_starterpack');
             localStorage.removeItem('rpg_equipamentos');
             localStorage.removeItem('rpg_inventario');
@@ -354,12 +384,16 @@
             // Reinicia etapa
             etapaAtual = 0;
             anguloAtual = 0;
+            // Restaurar todos os encontros disponíveis
+            if (window.encountersData && Array.isArray(window.encountersData.encounters)) {
+                encontrosRestantes = window.encountersData.encounters.filter(e => e.level === 1).map(e => e.nome);
+                etapas[2].opcoes = [...encontrosRestantes];
+            }
             renderEquipamentos();
             renderInventario();
             atualizarTitulo();
             desenharRoleta();
             document.getElementById('resultado').innerText = 'Gire a roleta para sortear!';
-            document.getElementById('proximo-btn').style.display = 'none';
             renderFicha();
             // Limpa logs visuais
             const ul = document.getElementById('log-list');
@@ -443,12 +477,16 @@
                         } else if (typeof item.nome === 'object' && item.nome !== null) {
                             nome = JSON.stringify(item.nome);
                         }
-                        li.textContent = `${item.emoji ? item.emoji + ' ' : ''}${nome}`;
-                        if (item.atributos && typeof item.atributos === 'object' && Object.keys(item.atributos).length > 0) {
-                            const span = document.createElement('span');
-                            span.style.color = '#888';
-                            span.textContent = ' [' + Object.entries(item.atributos).map(([k, v]) => `${k.charAt(0).toUpperCase() + k.slice(1)}: ${v}`).join(', ') + ']';
-                            li.appendChild(span);
+                        if (item.tipo === 'ouro') {
+                            li.innerHTML = `<span style='color:#c9a700;font-weight:bold;'>${nome}:</span> <span style='color:#444;'>${item.quantidade || 0}</span>`;
+                        } else {
+                            li.textContent = `${item.emoji ? item.emoji + ' ' : ''}${nome}`;
+                            if (item.atributos && typeof item.atributos === 'object' && Object.keys(item.atributos).length > 0) {
+                                const span = document.createElement('span');
+                                span.style.color = '#888';
+                                span.textContent = ' [' + Object.entries(item.atributos).map(([k, v]) => `${k.charAt(0).toUpperCase() + k.slice(1)}: ${v}`).join(', ') + ']';
+                                li.appendChild(span);
+                            }
                         }
                         ul.appendChild(li);
                     });
@@ -511,10 +549,24 @@
                         if (!c) return '';
                         let html = '';
                         if (c.dado_vida) html += `<div><b>Dado de Vida:</b> ${c.dado_vida}</div>`;
-                        if (c.habilidade_principal) html += `<div><b>Habilidade Principal:</b> ${c.habilidade_principal}</div>`;
-                        if (c.salvaguardas) html += `<div><b>Salvaguardas:</b> ${c.salvaguardas.join(', ')}</div>`;
-                        if (c.proficiencias_base) html += `<div><b>Proficiências:</b> ${c.proficiencias_base.join(', ')}</div>`;
+                        //if (c.habilidade_principal) html += `<div><b>Habilidade Principal:</b> ${c.habilidade_principal}</div>`;
+                        //if (c.salvaguardas) html += `<div><b>Salvaguardas:</b> ${c.salvaguardas.join(', ')}</div>`;
+                        //if (c.proficiencias_base) html += `<div><b>Proficiências:</b> ${c.proficiencias_base.join(', ')}</div>`;
                         return html;
+                    },
+                    aoSelecionar: (nome) => {
+                        // Ao escolher a classe, define HP máximo e atual conforme o dado de vida
+                        const c = classesData.find(x => x.nome === nome);
+                        if (!c || !c.dado_vida) return;
+                        let dado = c.dado_vida;
+                        let max = 1;
+                        if (dado === 'd12') max = 12;
+                        else if (dado === 'd10') max = 10;
+                        else if (dado === 'd8') max = 8;
+                        else if (dado === 'd6') max = 6;
+                        setMaxHP(max);
+                        setHP(max);
+                        localStorage.setItem('rpg_dado_vida', dado);
                     }
                 },
                 {
@@ -539,9 +591,11 @@
             const encountersResp = await fetch('/data/encounters.json');
             const encountersData = await encountersResp.json();
             window.encountersData = encountersData;
-            // Preencher opções da etapa de gameplay com os nomes dos encontros
-            if (etapas[2] && encountersData && Array.isArray(encountersData.encounters)) {
-                etapas[2].opcoes = encountersData.encounters.map(e => e.nome);
+            // Inicializa encontrosRestantes ao iniciar o jogo, filtrando por level do jogador
+            const playerLevel = getLevel();
+            encontrosRestantes = encountersData.encounters.filter(e => e.level === playerLevel).map(e => e.nome);
+            if (etapas[2] && Array.isArray(encontrosRestantes)) {
+                etapas[2].opcoes = [...encontrosRestantes];
             }
 
             // Função para atualizar as opções do starter pack conforme a classe escolhida
@@ -561,7 +615,10 @@
             window.atualizarStarterPackOpcoes = atualizarStarterPackOpcoes;
         }
 
-        const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
+        const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40",
+                        "#F06292", "#4DD0E1", "#FFD54F", "#81C784", "#BA68C8", "#FF7043",
+                        "#9575CD", "#4FC3F7", "#AED581", "#FFB74D", "#7986CB", "#E57373",
+                        "#64B5F6", "#DCE775"];
         const canvas = document.getElementById('roleta-canvas');
         const ctx = canvas.getContext('2d');
         const size = canvas.width;
@@ -582,7 +639,9 @@
         // Se for roleta de sucesso/falha, desenhar fatias proporcionais
         function desenharRoleta(angulo = 0, opcoesCustom = null, fatiasCustom = null) {
             ctx.clearRect(0, 0, size, size);
-            const opcoes = opcoesCustom || etapas[etapaAtual].opcoes;
+            let etapa = etapas[etapaAtual];
+            if (!etapa || !etapa.opcoes || etapa.opcoes.length === 0) return;
+            const opcoes = opcoesCustom || etapa.opcoes;
             let fatias = [];
             if (fatiasCustom && fatiasCustom.length === opcoes.length) {
                 fatias = fatiasCustom;
@@ -657,10 +716,9 @@
         // Estado para controlar se estamos sorteando o encontro ou interagindo com ele
         let aguardandoInteracaoEncontro = false;
 
-        document.getElementById('girar-btn').onclick = async function() 
-        {
+        document.getElementById('girar-btn').onclick = async function() {
             if (girando || etapaJaRolada) return;
-            
+
             // Função de animação da roleta
             function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
             function animarRoleta(anguloFinal, slices, callback) {
@@ -702,9 +760,40 @@
                 requestAnimationFrame(anim);
             }
 
+            // Etapa de rolar HP
+            if (etapas[etapaAtual] && etapas[etapaAtual].nome === 'rolar_hp') {
+                let opcoes = etapas[etapaAtual].opcoes;
+                let sorteadoIdx = Math.floor(Math.random() * opcoes.length);
+                let sorteado = opcoes[sorteadoIdx];
+                let maxHP = getMaxHP() + Number(sorteado);
+                setMaxHP(maxHP);
+                setHP(getHP() + Number(sorteado));
+                atualizarLog(`Você ganhou +${sorteado} pontos de vida!`);
+                // Remove etapaHP do fluxo
+                let idx = etapaAtual;
+                etapas = etapas.filter(e => e.nome !== 'rolar_hp');
+                // Ajusta etapaAtual para etapa gameplay se possível
+                let idxGameplay = etapas.findIndex(e => e.nome === 'gameplay');
+                etapaAtual = idxGameplay !== -1 ? idxGameplay : 0;
+                // Mostra popup
+                const popup = document.getElementById('popup-resultado');
+                const conteudo = document.getElementById('popup-resultado-conteudo');
+                conteudo.innerHTML = `<b>HP sorteado!</b><br>Você ganhou <b>${sorteado}</b> pontos de vida!`;
+                popup.style.display = 'flex';
+                etapaJaRolada = true;
+                desenharRoleta();
+                return;
+            }
             // Etapa de sorteio de encontro
             if (etapas[etapaAtual].nome === 'gameplay') {
-                const lista = window.encountersData.encounters;
+                // Usar encontrosRestantes para garantir que não repita
+                if (!encontrosRestantes || encontrosRestantes.length === 0) {
+                    atualizarLog('Todos os encontros já foram sorteados!');
+                    document.getElementById('resultado').innerText = 'Todos os encontros já foram sorteados!';
+                    return;
+                }
+                // Sorteio entre os encontros restantes
+                const lista = window.encountersData.encounters.filter(e => encontrosRestantes.includes(e.nome));
                 const totalPeso = lista.reduce((acc, e) => acc + (e.probabilidade_peso || 1), 0);
                 let r = Math.random() * totalPeso;
                 let encontro = lista[0];
@@ -713,11 +802,17 @@
                     if (r <= 0) { encontro = lista[i]; break; }
                 }
                 encontroAtual = encontro;
+                // Remove o encontro sorteado das opções
+                encontrosRestantes = encontrosRestantes.filter(nome => nome !== encontro.nome);
+                etapas[2].opcoes = [...encontrosRestantes];
                 // Sorteia o índice para animar a roleta
                 const idx = lista.indexOf(encontro);
                 const slices = lista.length;
                 const anguloPorSlice = 2 * Math.PI / slices;
                 const anguloAlvo = (idx + 0.5) * anguloPorSlice;
+                // Etapa dinâmica: rolar dado de vida
+                // (Removido: agora a etapa de HP é inserida apenas ao subir de level)
+                // Atualiza roleta de encontros para o novo level
                 const voltas = 5;
                 const anguloFinal = (2 * Math.PI * voltas) + (1.5 * Math.PI) - anguloAlvo;
                 girando = true;
@@ -740,20 +835,23 @@
             // Etapa de teste de sorte/sucesso
             if (etapas[etapaAtual].nome === 'teste' && encontroAtual && etapas.findIndex(e => e.nome === 'teste') === etapaAtual) {
                 // --- Lógica de sucesso baseada nos bônus do personagem ---
-                // 1. Coletar requisitos do encontro
+                // 1. Coletar requisitos do encontro e ajustar pesos conforme o level do encontro
                 let requisitos = [];
                 let requisitosPesos = [];
+                let fatorPeso = 1.0;
+                if (encontroAtual.level === 2) fatorPeso = 0.7;
+                if (encontroAtual.level === 3) fatorPeso = 0.5;
                 if (encontroAtual.logic_config) {
                     if (Array.isArray(encontroAtual.logic_config.teste_atributo)) {
                         encontroAtual.logic_config.teste_atributo.forEach(obj => {
                             requisitos.push(obj.nome);
-                            requisitosPesos.push(obj.peso);
+                            requisitosPesos.push(obj.peso * fatorPeso);
                         });
                     }
                     if (Array.isArray(encontroAtual.logic_config.teste_pericia)) {
                         encontroAtual.logic_config.teste_pericia.forEach(obj => {
                             requisitos.push(obj.nome);
-                            requisitosPesos.push(obj.peso);
+                            requisitosPesos.push(obj.peso * fatorPeso);
                         });
                     }
                 }
@@ -870,7 +968,7 @@
                 const anguloFinalSucesso = (2 * Math.PI * voltas) + (1.5 * Math.PI) - anguloAlvo;
                 girando = true;
                 
-                animarRoletaSucesso(anguloFinalSucesso, opcoesSucesso, fatiasSucesso, sorteadoIdx, chance, encontroAtual, function() {
+                animarRoletaSucesso(anguloFinalSucesso, opcoesSucesso, fatiasSucesso, sorteadoIdx, chance, encontroAtual, async function() {
                     girando = false;
                     const popup = document.getElementById('popup-resultado');
                     const conteudo = document.getElementById('popup-resultado-conteudo');
@@ -887,40 +985,70 @@
                         let recompensas = encontroAtual.logic_config.recompensas;
                         let multiplicador = (sucessoCritico ? 2 : 1);
                         let inventarioModificado = false;
+                        let equipamentosModificados = false;
+                        // Carregar itensData se não estiver carregado
+                        if (!window.itensData) {
+                            const resp = await fetch('/data/itens.json');
+                            window.itensData = await resp.json();
+                        }
+                        let itensData = window.itensData && window.itensData.itens ? window.itensData.itens : [];
                         recompensas.forEach(recomp => {
-                            // Exemplo: ouro
+                            // Ouro
                             if (recomp.tipo === 'ouro' && recomp.valor) {
                                 let qtd = Number(recomp.valor) * multiplicador;
                                 let inventario = getInventario();
-                                console.log(inventario);
                                 let ouro = inventario.find(i => i.tipo === 'ouro');
-                                console.log(ouro);
                                 if (!ouro) {
                                     ouro = { tipo: 'ouro', nome: 'Ouro', quantidade: 0 };
-                                    ouro.quantidade = (ouro.quantidade || 0) + qtd;
                                     inventario.push(ouro);
                                 }
-                                console.log(ouro);
+                                ouro.quantidade = (ouro.quantidade || 0) + qtd;
                                 setInventario(inventario);
                                 recompensasAplicadas.push(`+${qtd} ouro`);
                                 inventarioModificado = true;
                             }
-                            // Exemplo: item
-                            if (recomp.tipo === 'item' && recomp.item) {
+                            // Item por pool
+                            if (recomp.tipo === 'item' && recomp.pool) {
                                 let qtd = Number(recomp.quantidade || 1) * multiplicador;
-                                let inventario = getInventario();
-                                for (let i = 0; i < qtd; i++) {
-                                    inventario.push(recomp.item);
+                                // Filtra itens do pool
+                                let poolItens = itensData.filter(i => i.pool === recomp.pool);
+                                if (poolItens.length > 0) {
+                                    for (let i = 0; i < qtd; i++) {
+                                        // Sorteia um item do pool
+                                        let sorteado = poolItens[Math.floor(Math.random() * poolItens.length)];
+                                        if (sorteado.tipo === 'equipamento' && sorteado.slot) {
+                                            // Substitui equipamento do mesmo slot
+                                            let equipamentos = getEquipamentos();
+                                            let idx = equipamentos.findIndex(eq => eq.slot === sorteado.slot);
+                                            if (idx !== -1) {
+                                                equipamentos[idx] = sorteado;
+                                            } else {
+                                                equipamentos.push(sorteado);
+                                            }
+                                            setEquipamentos(equipamentos);
+                                            recompensasAplicadas.push(`Novo equipamento: ${sorteado.nome}`);
+                                            equipamentosModificados = true;
+                                        } else {
+                                            // Inventário normal
+                                            let inventario = getInventario();
+                                            inventario.push(sorteado);
+                                            setInventario(inventario);
+                                            recompensasAplicadas.push(`+1x ${sorteado.nome}`);
+                                            inventarioModificado = true;
+                                        }
+                                    }
                                 }
-                                setInventario(inventario);
-                                recompensasAplicadas.push(`+${qtd}x ${recomp.item.nome || 'item'}`);
-                                inventarioModificado = true;
                             }
                         });
+                        
                         if (inventarioModificado) {
                             renderInventario();
                         }
+                        if (equipamentosModificados) {
+                            renderEquipamentos();
+                        }
                     }
+
                     // Mensagem de sucesso
                     if (sucessoCritico) {
                         conteudo.innerHTML = `<b>Sucesso Crítico!</b><br>${meta.sucesso_critico_narrativa || 'Você teve um sucesso extraordinário!'}`;
@@ -933,6 +1061,7 @@
                         conteudo.innerHTML += `<div style='color:#388e3c;font-size:1em;margin-top:8px;'>${recompensasAplicadas.join(', ')}</div>`;
                         logMsg += `(${recompensasAplicadas.join(', ')})`;
                     }
+
                     // --- Consequências de FALHA ---
                     if (falhou && encontroAtual.logic_config && encontroAtual.logic_config.falha_consequencia && Array.isArray(encontroAtual.logic_config.falha_consequencia.efeitos)) {
                         let efeitos = encontroAtual.logic_config.falha_consequencia.efeitos;
@@ -957,6 +1086,9 @@
                                 logMsg += ` Morreu!`;
                             }
                         }
+
+                        falhaMsg = encontroAtual.logic_config.falha_consequencia.narrativa || 'Você falhou no teste.';
+                        logMsg = `${falhaCritica ? 'Falha Crítica' : 'Falha'} em ${nomeEncontro}. ${falhaMsg}`;
                     }
                     conteudo.innerHTML += `<div style='color:#888;font-size:0.9em;margin-top:8px;'>(Chance de sucesso: ${(chance*100).toFixed(0)}%)</div>`;
                     atualizarLog(logMsg);
@@ -997,6 +1129,10 @@
 
                 // Ao sortear raça ou classe, não avança etapa automaticamente!
                 if (etapas[etapaAtual].nome === 'classe') {
+                    // Chama aoSelecionar para atualizar HP e outros efeitos
+                    if (typeof etapas[etapaAtual].aoSelecionar === 'function') {
+                        etapas[etapaAtual].aoSelecionar(sorteado);
+                    }
                     const classeEscolhida = sorteado;
                     const starterPackData = window.starterPackData;
                     const itensData = window.itensData;
@@ -1024,9 +1160,17 @@
                     encontroAtual = null;
                 }
 
+                var txtPopup = '';
+
+                if(etapas[etapaAtual].nome === 'raca')
+                    txtPopup = "Raça sorteada!";
+                
+                 if(etapas[etapaAtual].nome === 'classe')
+                    txtPopup = "Classe sorteada!";
+
                 const popup = document.getElementById('popup-resultado');
                 const conteudo = document.getElementById('popup-resultado-conteudo');
-                conteudo.innerHTML = `<b>${sorteado}</b><br>${etapas[etapaAtual].detalhes ? etapas[etapaAtual].detalhes(sorteado) : ''}`;
+                conteudo.innerHTML = `${txtPopup}<br><b>${sorteado}</b><br>${etapas[etapaAtual].detalhes ? etapas[etapaAtual].detalhes(sorteado) : ''}`;
                 popup.style.display = 'flex';
                 etapaJaRolada = true;
                 desenharRoleta(anguloFinal);
@@ -1195,7 +1339,6 @@
                 etapaAtual = etapas.findIndex(e => e.nome === 'classe');
                 atualizarTitulo();
                 desenharRoleta();
-                document.getElementById('proximo-btn').style.display = 'none';
                 return;
             }
 
@@ -1204,10 +1347,42 @@
                 etapaAtual = etapas.findIndex(e => e.nome === 'gameplay');
                 atualizarTitulo();
                 desenharRoleta();
-                document.getElementById('proximo-btn').style.display = 'none';
                 return;
             }
 
+            // Se houver HP pendente, insere etapa de rolar HP e avança para ela ANTES do próximo encontro
+            if (localStorage.getItem('rpg_pendente_rolar_hp') === '1') {
+                let dado = localStorage.getItem('rpg_dado_vida');
+                let faces = 0;
+                if (dado === 'd12') faces = 12;
+                else if (dado === 'd10') faces = 10;
+                else if (dado === 'd8') faces = 8;
+                else if (dado === 'd6') faces = 6;
+                else if (dado === 'd4') faces = 4;
+                let etapaHP = {
+                    nome: 'rolar_hp',
+                    titulo: 'Role o Dado de Vida!',
+                    opcoes: Array.from({length: faces}, (_, i) => (i+1).toString()),
+                    chave: null,
+                    mensagem: 'Pontos de vida ganhos: ',
+                    detalhes: () => 'O valor sorteado será somado ao seu HP máximo e atual.'
+                };
+                // Remove qualquer etapaHP antiga
+                etapas = etapas.filter(e => e.nome !== 'rolar_hp');
+                // Insere etapaHP IMEDIATAMENTE após a etapa de teste
+                let idxTeste = etapas.findIndex(e => e.nome === 'teste');
+                if (idxTeste !== -1) {
+                    etapas.splice(idxTeste + 1, 0, etapaHP);
+                    etapaAtual = idxTeste + 1;
+                } else {
+                    etapas.push(etapaHP);
+                    etapaAtual = etapas.length - 1;
+                }
+                atualizarTitulo();
+                desenharRoleta();
+                localStorage.removeItem('rpg_pendente_rolar_hp');
+                return;
+            }
             // Etapa 3: gameplay → teste (apenas se vier diretamente da etapa gameplay)
             if (etapas[etapaAtual].nome === 'gameplay' && encontroAtual) {
                 etapaAtual = etapas.findIndex(e => e.nome === 'teste');
@@ -1253,21 +1428,6 @@
         document.getElementById('novo-jogo-btn').onclick = function() {
             etapaJaRolada = false;
             if (typeof oldNovoJogoBtn === 'function') oldNovoJogoBtn();
-        };
-
-        document.getElementById('proximo-btn').onclick = function() {
-            if (etapaAtual < etapas.length - 1) {
-                etapaAtual++;
-                anguloAtual = 0;
-                // Se for a etapa do starter pack, atualizar as opções
-                if (etapas[etapaAtual].nome === 'starterpack') {
-                    if (window.atualizarStarterPackOpcoes) window.atualizarStarterPackOpcoes();
-                }
-                atualizarTitulo();
-                desenharRoleta();
-                document.getElementById('resultado').innerText = 'Gire a roleta para sortear!';
-                document.getElementById('proximo-btn').style.display = 'none';
-            }
         };
         
     </script>

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RollPayingGaming")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e28a273af5655acd783f24544f8a06d6752d10b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e1e91deb9f699d2fddec3a58d7d542a6dc0c62e3")]
 [assembly: System.Reflection.AssemblyProductAttribute("RollPayingGaming")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RollPayingGaming")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
