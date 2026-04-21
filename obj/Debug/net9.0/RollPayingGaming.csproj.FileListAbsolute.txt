@@ -109,4 +109,4 @@ F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\jxsajm4zaz-5kz0q
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\RollPayingGaming.sourcelink.json
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\03jwpv8q6r-9s8mmlyfkj.gz
 F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\pnd0bkqexg-i2knyrvv2o.gz
-F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\hqdz41b4rj-8w1om61ywx.gz
+F:\DESENVOLVIMENTO\RollPayingGaming\obj\Debug\net9.0\compressed\hqdz41b4rj-0pzu1pmp4q.gz

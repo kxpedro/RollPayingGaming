@@ -147,7 +147,7 @@
             }
             setXP(xp);
             setLevel(level);
-            // Só marca flag de HP pendente se subiu de level E o novo level for maior que 1 E o level anterior era >=1
+            // Se subiu de nível, processa bônus e marca flag de HP pendente
             if (subiuLevel && prevLevel >= 1 && level > 1) {
                 // Aumenta +1 ponto base em todos os atributos por level ganho
                 let baseKey = 'rpg_bonus_base_atributos';
@@ -165,7 +165,7 @@
                     etapas[2].opcoes = [...encontrosRestantes];
                     desenharRoleta();
                 }
-                // Marca flag para sortear HP depois do encontro
+                // Marca flag para sortear HP depois do teste do encontro
                 localStorage.setItem('rpg_pendente_rolar_hp', '1');
             }
         }
@@ -584,6 +584,14 @@
                     chave: null,
                     mensagem: 'Resultado do teste: ',
                     detalhes: () => ''
+                },
+                {
+                    nome: 'rolar_hp',
+                    titulo: 'Pontos de Vida',
+                    opcoes: [],
+                    chave: null,
+                    mensagem: 'Resultado do teste: ',
+                    detalhes: () => ''
                 }
             ];
 
@@ -591,6 +599,7 @@
             const encountersResp = await fetch('/data/encounters.json');
             const encountersData = await encountersResp.json();
             window.encountersData = encountersData;
+            
             // Inicializa encontrosRestantes ao iniciar o jogo, filtrando por level do jogador
             const playerLevel = getLevel();
             encontrosRestantes = encountersData.encounters.filter(e => e.level === playerLevel).map(e => e.nome);
@@ -612,6 +621,7 @@
                     etapas[2].opcoes = ['Starter pack sem escolhas'];
                 }
             };
+
             window.atualizarStarterPackOpcoes = atualizarStarterPackOpcoes;
         }
 
@@ -619,6 +629,7 @@
                         "#F06292", "#4DD0E1", "#FFD54F", "#81C784", "#BA68C8", "#FF7043",
                         "#9575CD", "#4FC3F7", "#AED581", "#FFB74D", "#7986CB", "#E57373",
                         "#64B5F6", "#DCE775"];
+
         const canvas = document.getElementById('roleta-canvas');
         const ctx = canvas.getContext('2d');
         const size = canvas.width;
@@ -763,27 +774,48 @@
             // Etapa de rolar HP
             if (etapas[etapaAtual] && etapas[etapaAtual].nome === 'rolar_hp') {
                 let opcoes = etapas[etapaAtual].opcoes;
-                let sorteadoIdx = Math.floor(Math.random() * opcoes.length);
+                let slices = opcoes.length;
+                let sorteadoIdx = Math.floor(Math.random() * slices);
                 let sorteado = opcoes[sorteadoIdx];
-                let maxHP = getMaxHP() + Number(sorteado);
-                setMaxHP(maxHP);
-                setHP(getHP() + Number(sorteado));
-                atualizarLog(`Você ganhou +${sorteado} pontos de vida!`);
-                // Remove etapaHP do fluxo
-                let idx = etapaAtual;
-                etapas = etapas.filter(e => e.nome !== 'rolar_hp');
-                // Ajusta etapaAtual para etapa gameplay se possível
-                let idxGameplay = etapas.findIndex(e => e.nome === 'gameplay');
-                etapaAtual = idxGameplay !== -1 ? idxGameplay : 0;
-                // Mostra popup
-                const popup = document.getElementById('popup-resultado');
-                const conteudo = document.getElementById('popup-resultado-conteudo');
-                conteudo.innerHTML = `<b>HP sorteado!</b><br>Você ganhou <b>${sorteado}</b> pontos de vida!`;
-                popup.style.display = 'flex';
-                etapaJaRolada = true;
-                desenharRoleta();
+                let anguloPorSlice = 2 * Math.PI / slices;
+                let anguloAlvo = (sorteadoIdx + 0.5) * anguloPorSlice;
+                let voltas = 5;
+                let anguloFinal = (2 * Math.PI * voltas) + (1.5 * Math.PI) - anguloAlvo;
+                girando = true;
+                animarRoleta(anguloFinal, slices, function() {
+                    girando = false;
+                    let maxHP = getMaxHP() + Number(sorteado);
+                    setMaxHP(maxHP);
+                    setHP(getHP() + Number(sorteado));
+                    atualizarLog(`Você ganhou +${sorteado} pontos de vida!`);
+                    // Remove etapaHP do fluxo
+                    etapas = etapas.filter(e => e.nome !== 'rolar_hp');
+                    // Garante que a próxima etapa seja gameplay
+                    let idxGameplay = etapas.findIndex(e => e.nome === 'gameplay');
+                    if (idxGameplay === -1) {
+                        // Se não existir, cria e adiciona
+                        etapas.push({
+                            nome: 'gameplay',
+                            titulo: 'Encontro Aleatório!',
+                            opcoes: [],
+                            chave: null,
+                            mensagem: 'Encontro: ',
+                            detalhes: (nome) => ''
+                        });
+                        idxGameplay = etapas.length - 1;
+                    }
+                    etapaAtual = idxGameplay;
+                    // Mostra popup
+                    const popup = document.getElementById('popup-resultado');
+                    const conteudo = document.getElementById('popup-resultado-conteudo');
+                    conteudo.innerHTML = `<b>HP sorteado!</b><br>Você ganhou <b>${sorteado}</b> pontos de vida!`;
+                    popup.style.display = 'flex';
+                    etapaJaRolada = false;
+                    desenharRoleta();
+                });
                 return;
             }
+
             // Etapa de sorteio de encontro
             if (etapas[etapaAtual].nome === 'gameplay') {
                 // Usar encontrosRestantes para garantir que não repita
@@ -1334,6 +1366,9 @@
             // Sempre resetar etapaJaRolada ao avançar etapa
             etapaJaRolada = false;
 
+            console.log('Etapa atual:', etapas[etapaAtual] ? etapas[etapaAtual].nome : 'N/A');
+            console.log(localStorage);
+
             // Etapa 1: raça → classe
             if (etapas[etapaAtual].nome === 'raca') {
                 etapaAtual = etapas.findIndex(e => e.nome === 'classe');
@@ -1350,8 +1385,8 @@
                 return;
             }
 
-            // Se houver HP pendente, insere etapa de rolar HP e avança para ela ANTES do próximo encontro
-            if (localStorage.getItem('rpg_pendente_rolar_hp') === '1') {
+            // Só insere etapa de rolar HP ao fechar o popup do teste de sucesso
+            if (etapas[etapaAtual].nome === 'teste' && localStorage.getItem('rpg_pendente_rolar_hp') === '1') {
                 let dado = localStorage.getItem('rpg_dado_vida');
                 let faces = 0;
                 if (dado === 'd12') faces = 12;
@@ -1370,19 +1405,14 @@
                 // Remove qualquer etapaHP antiga
                 etapas = etapas.filter(e => e.nome !== 'rolar_hp');
                 // Insere etapaHP IMEDIATAMENTE após a etapa de teste
-                let idxTeste = etapas.findIndex(e => e.nome === 'teste');
-                if (idxTeste !== -1) {
-                    etapas.splice(idxTeste + 1, 0, etapaHP);
-                    etapaAtual = idxTeste + 1;
-                } else {
-                    etapas.push(etapaHP);
-                    etapaAtual = etapas.length - 1;
-                }
+                etapas.splice(etapaAtual + 1, 0, etapaHP);
+                etapaAtual = etapaAtual + 1;
                 atualizarTitulo();
                 desenharRoleta();
                 localStorage.removeItem('rpg_pendente_rolar_hp');
                 return;
             }
+
             // Etapa 3: gameplay → teste (apenas se vier diretamente da etapa gameplay)
             if (etapas[etapaAtual].nome === 'gameplay' && encontroAtual) {
                 etapaAtual = etapas.findIndex(e => e.nome === 'teste');
@@ -1407,10 +1437,79 @@
                 } else if (texto.includes('Sucesso')) {
                     ganhouXP = 25;
                 }
+                let upou = false;
+                let levelAntes = getLevel();
                 if (ganhouXP > 0) {
                     addXP(ganhouXP);
                     atualizarLog(`Você ganhou ${ganhouXP} pontos de experiência!`);
                     renderFicha();
+                }
+                let levelDepois = getLevel();
+                upou = (levelDepois > levelAntes);
+                // Se upou, exibe popup de level up antes do sorteio de HP
+                if (upou) {
+                    const popup = document.getElementById('popup-resultado');
+                    const conteudo = document.getElementById('popup-resultado-conteudo');
+                    conteudo.innerHTML = `<b>Parabéns!</b><br>Você subiu para o nível <b>${levelDepois}</b>!<br>Seus atributos aumentaram e você poderá sortear pontos de vida adicionais.`;
+                    popup.style.display = 'flex';
+                    // Após fechar esse popup, irá cair novamente neste handler e sortear HP
+                    return;
+                }
+                // Se flag de HP pendente, insere etapa de rolar_hp animada
+                if (localStorage.getItem('rpg_pendente_rolar_hp') === '1' && getLevel() > 1) {
+                    let dado = localStorage.getItem('rpg_dado_vida');
+                    let faces = 0;
+                    if (dado === 'd12') faces = 12;
+                    else if (dado === 'd10') faces = 10;
+                    else if (dado === 'd8') faces = 8;
+                    else if (dado === 'd6') faces = 6;
+                    else if (dado === 'd4') faces = 4;
+                    let etapaHP = {
+                        nome: 'rolar_hp',
+                        titulo: 'Role o Dado de Vida!',
+                        opcoes: Array.from({length: faces}, (_, i) => (i+1).toString()),
+                        chave: null,
+                        mensagem: 'Pontos de vida ganhos: ',
+                        detalhes: () => 'O valor sorteado será somado ao seu HP máximo e atual.'
+                    };
+                    // Remove qualquer etapaHP antiga
+                    etapas = etapas.filter(e => e.nome !== 'rolar_hp');
+                    // Insere etapaHP IMEDIATAMENTE após a etapa de teste
+                    etapas.splice(etapaAtual + 1, 0, etapaHP);
+                    etapaAtual = etapaAtual + 1;
+                    atualizarTitulo();
+                    // Animar roleta de HP
+                    let slices = faces;
+                    let sorteadoIdx = Math.floor(Math.random() * slices);
+                    let anguloPorSlice = 2 * Math.PI / slices;
+                    let anguloAlvo = (sorteadoIdx + 0.5) * anguloPorSlice;
+                    let voltas = 5;
+                    let anguloFinal = (2 * Math.PI * voltas) + (1.5 * Math.PI) - anguloAlvo;
+                    girando = true;
+                    animarRoleta(anguloFinal, slices, function() {
+                        girando = false;
+                        // Após animação, processa HP normalmente
+                        let valor = sorteadoIdx + 1;
+                        setMaxHP(getMaxHP() + valor);
+                        setHP(getHP() + valor);
+                        atualizarLog(`Você ganhou +${valor} pontos de vida!`);
+                        // Remove etapaHP do fluxo
+                        etapas = etapas.filter(e => e.nome !== 'rolar_hp');
+                        // Ajusta etapaAtual para etapa gameplay se possível
+                        let idxGameplay = etapas.findIndex(e => e.nome === 'gameplay');
+                        etapaAtual = idxGameplay !== -1 ? idxGameplay : 0;
+                        // Mostra popup
+                        const popup = document.getElementById('popup-resultado');
+                        const conteudo = document.getElementById('popup-resultado-conteudo');
+                        conteudo.innerHTML = `<b>HP sorteado!</b><br>Você ganhou <b>${valor}</b> pontos de vida!`;
+                        popup.style.display = 'flex';
+                        desenharRoleta();
+                    });
+                    localStorage.removeItem('rpg_pendente_rolar_hp');
+                    return;
+                } else if (localStorage.getItem('rpg_pendente_rolar_hp') === '1') {
+                    // Se por algum motivo a flag ficou setada em level 1, apenas limpa
+                    localStorage.removeItem('rpg_pendente_rolar_hp');
                 }
                 // Limpa o encontroAtual para evitar reentrada indevida na etapa teste
                 encontroAtual = null;

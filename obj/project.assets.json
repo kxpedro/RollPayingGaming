@@ -8,7 +8,7 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Dev\\.nuget\\packages\\": {},
+    "C:\\Users\\pedro\\.nuget\\packages\\": {},
     "W:\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
@@ -17,14 +17,14 @@
       "projectUniqueName": "F:\\DESENVOLVIMENTO\\RollPayingGaming\\RollPayingGaming.csproj",
       "projectName": "RollPayingGaming",
       "projectPath": "F:\\DESENVOLVIMENTO\\RollPayingGaming\\RollPayingGaming.csproj",
-      "packagesPath": "C:\\Users\\Dev\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
       "outputPath": "F:\\DESENVOLVIMENTO\\RollPayingGaming\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "W:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Dev\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
